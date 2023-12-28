@@ -19,3 +19,49 @@ model User {
 
     @@index([name])
 }
+
+model Surgeon {
+    id           Int            @id @default(autoincrement())
+    name         String
+    npi          String         @unique
+    specialty    String
+    createdAt    DateTime       @default(now())
+    updatedAt    DateTime       @updatedAt
+    SurgicalCase SurgicalCase[]
+
+    @@index([name])
+}
+
+model Patient {
+    id           Int            @id @default(autoincrement())
+    externalId   String         @unique
+    name         String
+    age          Int
+    gender       String
+    photoUrl     String
+    phone        String
+    street       String
+    city         String
+    state        String
+    zip          String
+    createdAt    DateTime       @default(now())
+    updatedAt    DateTime       @updatedAt
+    SurgicalCase SurgicalCase[]
+
+    @@index([name])
+}
+
+model SurgicalCase {
+    id            Int      @id @default(autoincrement())
+    externalId    String   @unique
+    patientId     Int
+    patient       Patient  @relation(fields: [patientId], references: [id])
+    surgeonId     Int
+    surgeon       Surgeon  @relation(fields: [surgeonId], references: [id])
+    dateOfSurgery DateTime
+    diagnosis     String
+    procedure     String
+    icd10Code     String
+    createdAt     DateTime @default(now())
+    updatedAt     DateTime @updatedAt
+}

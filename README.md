@@ -29,18 +29,20 @@ Creating this application will require implementing a react UI along with APIs t
 
 ## Tech stack
 
-This provided repo is setup with a tech stack similar to what we’re using. It is bootstrapped using the [T3 Stack](https://create.t3.gg/). Below are links to the relevant technologies contained within.
+This provided repo is setup with a tech stack similar to what we’re using. Below are links to the relevant technologies contained within.
 
-- [TypeScript](https://typescriptlang.org/)
 - [Next.js](https://nextjs.org)
 - [Prisma](https://prisma.io)
 - [Tailwind CSS](https://tailwindcss.com)
 - [tRPC](https://trpc.io)
-- [zod](https://zod.dev)
 
 While we have suggested a stack based on what we use, you may prefer other technologies such as a different UI library, API paradigm such as graphql, etc. You can use what you prefer but please come prepared to explain your choices. Using all or most of our stack gives us the opportunity to evaluate your skills in these technologies.
 
 ## Setup
+
+## Project
+- Clone the repo from github
+- Run `npm install` to install dependencies
 
 ### Next.js
 
