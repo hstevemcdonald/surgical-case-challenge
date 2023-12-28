@@ -1,0 +1,688 @@
+{
+    "surgical_cases": [
+        {
+            "case_id": 1,
+            "patient_id": "P1000",
+            "diagnosis": "Acute appendicitis without perforation or gangrene",
+            "date_of_surgery": "2023-06-29",
+            "procedure": "Tonsillectomy",
+            "ICD-10_diagnosis_code": "K35.80",
+            "surgeon_npi": "3290393175"
+        },
+        {
+            "case_id": 2,
+            "patient_id": "P1001",
+            "diagnosis": "Acute tonsillitis, unspecified",
+            "date_of_surgery": "2023-03-19",
+            "procedure": "Hernia Repair",
+            "ICD-10_diagnosis_code": "J03.90",
+            "surgeon_npi": "3290393175"
+        },
+        {
+            "case_id": 3,
+            "patient_id": "P1002",
+            "diagnosis": "Calculus of gallbladder without cholecystitis without obstruction",
+            "date_of_surgery": "2023-06-12",
+            "procedure": "Appendectomy",
+            "ICD-10_diagnosis_code": "K80.20",
+            "surgeon_npi": "8693184545"
+        },
+        {
+            "case_id": 4,
+            "patient_id": "P1003",
+            "diagnosis": "Unspecified age-related cataract",
+            "date_of_surgery": "2023-12-30",
+            "procedure": "Cataract Surgery",
+            "ICD-10_diagnosis_code": "H25.9",
+            "surgeon_npi": "3290393175"
+        },
+        {
+            "case_id": 5,
+            "patient_id": "P1004",
+            "diagnosis": "Unilateral inguinal hernia, without obstruction or gangrene, not specified as recurrent",
+            "date_of_surgery": "2023-03-22",
+            "procedure": "Cholecystectomy",
+            "ICD-10_diagnosis_code": "K40.90",
+            "surgeon_npi": "8303157155"
+        },
+        {
+            "case_id": 6,
+            "patient_id": "P1005",
+            "diagnosis": "Unspecified age-related cataract",
+            "date_of_surgery": "2023-09-03",
+            "procedure": "Hernia Repair",
+            "ICD-10_diagnosis_code": "H25.9",
+            "surgeon_npi": "9952485887"
+        },
+        {
+            "case_id": 7,
+            "patient_id": "P1006",
+            "diagnosis": "Calculus of gallbladder without cholecystitis without obstruction",
+            "date_of_surgery": "2023-08-03",
+            "procedure": "Tonsillectomy",
+            "ICD-10_diagnosis_code": "K80.20",
+            "surgeon_npi": "3290393175"
+        },
+        {
+            "case_id": 8,
+            "patient_id": "P1007",
+            "diagnosis": "Unilateral inguinal hernia, without obstruction or gangrene, not specified as recurrent",
+            "date_of_surgery": "2023-04-05",
+            "procedure": "Cholecystectomy",
+            "ICD-10_diagnosis_code": "K40.90",
+            "surgeon_npi": "8693184545"
+        },
+        {
+            "case_id": 9,
+            "patient_id": "P1008",
+            "diagnosis": "Calculus of gallbladder without cholecystitis without obstruction",
+            "date_of_surgery": "2023-11-14",
+            "procedure": "Cholecystectomy",
+            "ICD-10_diagnosis_code": "K80.20",
+            "surgeon_npi": "8303157155"
+        },
+        {
+            "case_id": 10,
+            "patient_id": "P1009",
+            "diagnosis": "Acute appendicitis without perforation or gangrene",
+            "date_of_surgery": "2023-07-07",
+            "procedure": "Hernia Repair",
+            "ICD-10_diagnosis_code": "K35.80",
+            "surgeon_npi": "8693184545"
+        },
+        {
+            "case_id": 11,
+            "patient_id": "P1010",
+            "diagnosis": "Calculus of gallbladder without cholecystitis without obstruction",
+            "date_of_surgery": "2023-11-16",
+            "procedure": "Hernia Repair",
+            "ICD-10_diagnosis_code": "K80.20",
+            "surgeon_npi": "9952485887"
+        },
+        {
+            "case_id": 12,
+            "patient_id": "P1011",
+            "diagnosis": "Unilateral inguinal hernia, without obstruction or gangrene, not specified as recurrent",
+            "date_of_surgery": "2023-05-11",
+            "procedure": "Hernia Repair",
+            "ICD-10_diagnosis_code": "K40.90",
+            "surgeon_npi": "3290393175"
+        },
+        {
+            "case_id": 13,
+            "patient_id": "P1012",
+            "diagnosis": "Calculus of gallbladder without cholecystitis without obstruction",
+            "date_of_surgery": "2023-02-25",
+            "procedure": "Cholecystectomy",
+            "ICD-10_diagnosis_code": "K80.20",
+            "surgeon_npi": "8693184545"
+        },
+        {
+            "case_id": 14,
+            "patient_id": "P1013",
+            "diagnosis": "Unilateral inguinal hernia, without obstruction or gangrene, not specified as recurrent",
+            "date_of_surgery": "2023-01-04",
+            "procedure": "Cataract Surgery",
+            "ICD-10_diagnosis_code": "K40.90",
+            "surgeon_npi": "9952485887"
+        },
+        {
+            "case_id": 15,
+            "patient_id": "P1014",
+            "diagnosis": "Acute tonsillitis, unspecified",
+            "date_of_surgery": "2023-06-06",
+            "procedure": "Hernia Repair",
+            "ICD-10_diagnosis_code": "J03.90",
+            "surgeon_npi": "8303157155"
+        },
+        {
+            "case_id": 16,
+            "patient_id": "P1000",
+            "diagnosis": "Acute appendicitis without perforation or gangrene",
+            "date_of_surgery": "2023-11-18",
+            "procedure": "Hernia Repair",
+            "ICD-10_diagnosis_code": "K35.80",
+            "surgeon_npi": "3290393175"
+        },
+        {
+            "case_id": 17,
+            "patient_id": "P1001",
+            "diagnosis": "Acute appendicitis without perforation or gangrene",
+            "date_of_surgery": "2023-03-30",
+            "procedure": "Hernia Repair",
+            "ICD-10_diagnosis_code": "K35.80",
+            "surgeon_npi": "3290393175"
+        },
+        {
+            "case_id": 18,
+            "patient_id": "P1002",
+            "diagnosis": "Unspecified age-related cataract",
+            "date_of_surgery": "2023-05-21",
+            "procedure": "Hernia Repair",
+            "ICD-10_diagnosis_code": "H25.9",
+            "surgeon_npi": "8693184545"
+        },
+        {
+            "case_id": 19,
+            "patient_id": "P1003",
+            "diagnosis": "Acute appendicitis without perforation or gangrene",
+            "date_of_surgery": "2023-01-19",
+            "procedure": "Cholecystectomy",
+            "ICD-10_diagnosis_code": "K35.80",
+            "surgeon_npi": "8693184545"
+        },
+        {
+            "case_id": 20,
+            "patient_id": "P1004",
+            "diagnosis": "Calculus of gallbladder without cholecystitis without obstruction",
+            "date_of_surgery": "2023-07-16",
+            "procedure": "Appendectomy",
+            "ICD-10_diagnosis_code": "K80.20",
+            "surgeon_npi": "9952485887"
+        },
+        {
+            "case_id": 21,
+            "patient_id": "P1005",
+            "diagnosis": "Calculus of gallbladder without cholecystitis without obstruction",
+            "date_of_surgery": "2023-09-20",
+            "procedure": "Appendectomy",
+            "ICD-10_diagnosis_code": "K80.20",
+            "surgeon_npi": "8693184545"
+        },
+        {
+            "case_id": 22,
+            "patient_id": "P1006",
+            "diagnosis": "Calculus of gallbladder without cholecystitis without obstruction",
+            "date_of_surgery": "2023-07-12",
+            "procedure": "Appendectomy",
+            "ICD-10_diagnosis_code": "K80.20",
+            "surgeon_npi": "3290393175"
+        },
+        {
+            "case_id": 23,
+            "patient_id": "P1007",
+            "diagnosis": "Calculus of gallbladder without cholecystitis without obstruction",
+            "date_of_surgery": "2023-04-01",
+            "procedure": "Cholecystectomy",
+            "ICD-10_diagnosis_code": "K80.20",
+            "surgeon_npi": "8303157155"
+        },
+        {
+            "case_id": 24,
+            "patient_id": "P1008",
+            "diagnosis": "Unspecified age-related cataract",
+            "date_of_surgery": "2023-11-19",
+            "procedure": "Cataract Surgery",
+            "ICD-10_diagnosis_code": "H25.9",
+            "surgeon_npi": "8693184545"
+        },
+        {
+            "case_id": 25,
+            "patient_id": "P1009",
+            "diagnosis": "Acute appendicitis without perforation or gangrene",
+            "date_of_surgery": "2023-04-08",
+            "procedure": "Tonsillectomy",
+            "ICD-10_diagnosis_code": "K35.80",
+            "surgeon_npi": "9952485887"
+        },
+        {
+            "case_id": 26,
+            "patient_id": "P1010",
+            "diagnosis": "Unspecified age-related cataract",
+            "date_of_surgery": "2023-03-27",
+            "procedure": "Appendectomy",
+            "ICD-10_diagnosis_code": "H25.9",
+            "surgeon_npi": "8693184545"
+        },
+        {
+            "case_id": 27,
+            "patient_id": "P1011",
+            "diagnosis": "Unspecified age-related cataract",
+            "date_of_surgery": "2023-01-14",
+            "procedure": "Cholecystectomy",
+            "ICD-10_diagnosis_code": "H25.9",
+            "surgeon_npi": "8693184545"
+        },
+        {
+            "case_id": 28,
+            "patient_id": "P1012",
+            "diagnosis": "Unilateral inguinal hernia, without obstruction or gangrene, not specified as recurrent",
+            "date_of_surgery": "2023-03-22",
+            "procedure": "Cholecystectomy",
+            "ICD-10_diagnosis_code": "K40.90",
+            "surgeon_npi": "3290393175"
+        },
+        {
+            "case_id": 29,
+            "patient_id": "P1013",
+            "diagnosis": "Acute appendicitis without perforation or gangrene",
+            "date_of_surgery": "2023-11-20",
+            "procedure": "Hernia Repair",
+            "ICD-10_diagnosis_code": "K35.80",
+            "surgeon_npi": "3290393175"
+        },
+        {
+            "case_id": 30,
+            "patient_id": "P1014",
+            "diagnosis": "Unilateral inguinal hernia, without obstruction or gangrene, not specified as recurrent",
+            "date_of_surgery": "2023-06-12",
+            "procedure": "Cholecystectomy",
+            "ICD-10_diagnosis_code": "K40.90",
+            "surgeon_npi": "8693184545"
+        },
+        {
+            "case_id": 31,
+            "patient_id": "P1000",
+            "diagnosis": "Acute tonsillitis, unspecified",
+            "date_of_surgery": "2023-04-17",
+            "procedure": "Hernia Repair",
+            "ICD-10_diagnosis_code": "J03.90",
+            "surgeon_npi": "8693184545"
+        },
+        {
+            "case_id": 32,
+            "patient_id": "P1001",
+            "diagnosis": "Acute appendicitis without perforation or gangrene",
+            "date_of_surgery": "2023-02-08",
+            "procedure": "Cataract Surgery",
+            "ICD-10_diagnosis_code": "K35.80",
+            "surgeon_npi": "3290393175"
+        },
+        {
+            "case_id": 33,
+            "patient_id": "P1002",
+            "diagnosis": "Calculus of gallbladder without cholecystitis without obstruction",
+            "date_of_surgery": "2023-06-09",
+            "procedure": "Hernia Repair",
+            "ICD-10_diagnosis_code": "K80.20",
+            "surgeon_npi": "8693184545"
+        },
+        {
+            "case_id": 34,
+            "patient_id": "P1003",
+            "diagnosis": "Unspecified age-related cataract",
+            "date_of_surgery": "2023-12-06",
+            "procedure": "Cataract Surgery",
+            "ICD-10_diagnosis_code": "H25.9",
+            "surgeon_npi": "8303157155"
+        },
+        {
+            "case_id": 35,
+            "patient_id": "P1004",
+            "diagnosis": "Acute tonsillitis, unspecified",
+            "date_of_surgery": "2023-09-08",
+            "procedure": "Cataract Surgery",
+            "ICD-10_diagnosis_code": "J03.90",
+            "surgeon_npi": "9952485887"
+        },
+        {
+            "case_id": 36,
+            "patient_id": "P1005",
+            "diagnosis": "Calculus of gallbladder without cholecystitis without obstruction",
+            "date_of_surgery": "2023-06-14",
+            "procedure": "Cataract Surgery",
+            "ICD-10_diagnosis_code": "K80.20",
+            "surgeon_npi": "8693184545"
+        },
+        {
+            "case_id": 37,
+            "patient_id": "P1006",
+            "diagnosis": "Acute appendicitis without perforation or gangrene",
+            "date_of_surgery": "2023-11-20",
+            "procedure": "Cholecystectomy",
+            "ICD-10_diagnosis_code": "K35.80",
+            "surgeon_npi": "9952485887"
+        },
+        {
+            "case_id": 38,
+            "patient_id": "P1007",
+            "diagnosis": "Unilateral inguinal hernia, without obstruction or gangrene, not specified as recurrent",
+            "date_of_surgery": "2023-01-24",
+            "procedure": "Cholecystectomy",
+            "ICD-10_diagnosis_code": "K40.90",
+            "surgeon_npi": "9952485887"
+        },
+        {
+            "case_id": 39,
+            "patient_id": "P1008",
+            "diagnosis": "Acute tonsillitis, unspecified",
+            "date_of_surgery": "2023-06-07",
+            "procedure": "Appendectomy",
+            "ICD-10_diagnosis_code": "J03.90",
+            "surgeon_npi": "8303157155"
+        },
+        {
+            "case_id": 40,
+            "patient_id": "P1009",
+            "diagnosis": "Acute appendicitis without perforation or gangrene",
+            "date_of_surgery": "2023-07-30",
+            "procedure": "Cholecystectomy",
+            "ICD-10_diagnosis_code": "K35.80",
+            "surgeon_npi": "9952485887"
+        },
+        {
+            "case_id": 41,
+            "patient_id": "P1010",
+            "diagnosis": "Unspecified age-related cataract",
+            "date_of_surgery": "2023-06-09",
+            "procedure": "Hernia Repair",
+            "ICD-10_diagnosis_code": "H25.9",
+            "surgeon_npi": "9952485887"
+        },
+        {
+            "case_id": 42,
+            "patient_id": "P1011",
+            "diagnosis": "Acute tonsillitis, unspecified",
+            "date_of_surgery": "2023-03-24",
+            "procedure": "Hernia Repair",
+            "ICD-10_diagnosis_code": "J03.90",
+            "surgeon_npi": "8303157155"
+        },
+        {
+            "case_id": 43,
+            "patient_id": "P1012",
+            "diagnosis": "Calculus of gallbladder without cholecystitis without obstruction",
+            "date_of_surgery": "2023-04-07",
+            "procedure": "Cholecystectomy",
+            "ICD-10_diagnosis_code": "K80.20",
+            "surgeon_npi": "3290393175"
+        },
+        {
+            "case_id": 44,
+            "patient_id": "P1013",
+            "diagnosis": "Unspecified age-related cataract",
+            "date_of_surgery": "2023-12-21",
+            "procedure": "Cataract Surgery",
+            "ICD-10_diagnosis_code": "H25.9",
+            "surgeon_npi": "8303157155"
+        },
+        {
+            "case_id": 45,
+            "patient_id": "P1014",
+            "diagnosis": "Calculus of gallbladder without cholecystitis without obstruction",
+            "date_of_surgery": "2023-02-22",
+            "procedure": "Appendectomy",
+            "ICD-10_diagnosis_code": "K80.20",
+            "surgeon_npi": "8303157155"
+        },
+        {
+            "case_id": 46,
+            "patient_id": "P1000",
+            "diagnosis": "Acute appendicitis without perforation or gangrene",
+            "date_of_surgery": "2023-10-25",
+            "procedure": "Appendectomy",
+            "ICD-10_diagnosis_code": "K35.80",
+            "surgeon_npi": "9952485887"
+        },
+        {
+            "case_id": 47,
+            "patient_id": "P1001",
+            "diagnosis": "Unspecified age-related cataract",
+            "date_of_surgery": "2023-10-08",
+            "procedure": "Tonsillectomy",
+            "ICD-10_diagnosis_code": "H25.9",
+            "surgeon_npi": "9952485887"
+        },
+        {
+            "case_id": 48,
+            "patient_id": "P1002",
+            "diagnosis": "Unspecified age-related cataract",
+            "date_of_surgery": "2023-08-03",
+            "procedure": "Cholecystectomy",
+            "ICD-10_diagnosis_code": "H25.9",
+            "surgeon_npi": "9952485887"
+        },
+        {
+            "case_id": 49,
+            "patient_id": "P1003",
+            "diagnosis": "Unspecified age-related cataract",
+            "date_of_surgery": "2023-09-03",
+            "procedure": "Cataract Surgery",
+            "ICD-10_diagnosis_code": "H25.9",
+            "surgeon_npi": "8303157155"
+        },
+        {
+            "case_id": 50,
+            "patient_id": "P1004",
+            "diagnosis": "Unilateral inguinal hernia, without obstruction or gangrene, not specified as recurrent",
+            "date_of_surgery": "2023-10-01",
+            "procedure": "Tonsillectomy",
+            "ICD-10_diagnosis_code": "K40.90",
+            "surgeon_npi": "8303157155"
+        }
+    ],
+    "patient_records": [
+        {
+            "patient_id": "P1000",
+            "name": "Patient P1000",
+            "age": 78,
+            "gender": "Female",
+            "photo": "https://randomuser.me/api/portraits/women/0.jpg",
+            "phone": "358-611-2254",
+            "address": {
+                "street_address": "646 Example St",
+                "city": "City of P1000",
+                "state": "State of P1000",
+                "zip_code": "29688"
+            }
+        },
+        {
+            "patient_id": "P1001",
+            "name": "Patient P1001",
+            "age": 37,
+            "gender": "Male",
+            "photo": "https://randomuser.me/api/portraits/men/1.jpg",
+            "phone": "277-234-7397",
+            "address": {
+                "street_address": "247 Example St",
+                "city": "City of P1001",
+                "state": "State of P1001",
+                "zip_code": "62508"
+            }
+        },
+        {
+            "patient_id": "P1002",
+            "name": "Patient P1002",
+            "age": 43,
+            "gender": "Male",
+            "photo": "https://randomuser.me/api/portraits/men/2.jpg",
+            "phone": "377-264-7913",
+            "address": {
+                "street_address": "230 Example St",
+                "city": "City of P1002",
+                "state": "State of P1002",
+                "zip_code": "37692"
+            }
+        },
+        {
+            "patient_id": "P1003",
+            "name": "Patient P1003",
+            "age": 75,
+            "gender": "Female",
+            "photo": "https://randomuser.me/api/portraits/women/3.jpg",
+            "phone": "316-678-3778",
+            "address": {
+                "street_address": "117 Example St",
+                "city": "City of P1003",
+                "state": "State of P1003",
+                "zip_code": "48735"
+            }
+        },
+        {
+            "patient_id": "P1004",
+            "name": "Patient P1004",
+            "age": 51,
+            "gender": "Male",
+            "photo": "https://randomuser.me/api/portraits/men/4.jpg",
+            "phone": "167-517-7366",
+            "address": {
+                "street_address": "189 Example St",
+                "city": "City of P1004",
+                "state": "State of P1004",
+                "zip_code": "14271"
+            }
+        },
+        {
+            "patient_id": "P1005",
+            "name": "Patient P1005",
+            "age": 23,
+            "gender": "Male",
+            "photo": "https://randomuser.me/api/portraits/men/5.jpg",
+            "phone": "762-436-1305",
+            "address": {
+                "street_address": "855 Example St",
+                "city": "City of P1005",
+                "state": "State of P1005",
+                "zip_code": "62316"
+            }
+        },
+        {
+            "patient_id": "P1006",
+            "name": "Patient P1006",
+            "age": 20,
+            "gender": "Male",
+            "photo": "https://randomuser.me/api/portraits/men/6.jpg",
+            "phone": "366-409-6688",
+            "address": {
+                "street_address": "489 Example St",
+                "city": "City of P1006",
+                "state": "State of P1006",
+                "zip_code": "48215"
+            }
+        },
+        {
+            "patient_id": "P1007",
+            "name": "Patient P1007",
+            "age": 46,
+            "gender": "Male",
+            "photo": "https://randomuser.me/api/portraits/men/7.jpg",
+            "phone": "223-519-3741",
+            "address": {
+                "street_address": "534 Example St",
+                "city": "City of P1007",
+                "state": "State of P1007",
+                "zip_code": "28168"
+            }
+        },
+        {
+            "patient_id": "P1008",
+            "name": "Patient P1008",
+            "age": 66,
+            "gender": "Female",
+            "photo": "https://randomuser.me/api/portraits/women/8.jpg",
+            "phone": "890-454-1001",
+            "address": {
+                "street_address": "660 Example St",
+                "city": "City of P1008",
+                "state": "State of P1008",
+                "zip_code": "83025"
+            }
+        },
+        {
+            "patient_id": "P1009",
+            "name": "Patient P1009",
+            "age": 71,
+            "gender": "Female",
+            "photo": "https://randomuser.me/api/portraits/women/9.jpg",
+            "phone": "201-188-6775",
+            "address": {
+                "street_address": "625 Example St",
+                "city": "City of P1009",
+                "state": "State of P1009",
+                "zip_code": "21238"
+            }
+        },
+        {
+            "patient_id": "P1010",
+            "name": "Patient P1010",
+            "age": 27,
+            "gender": "Female",
+            "photo": "https://randomuser.me/api/portraits/women/10.jpg",
+            "phone": "590-431-5979",
+            "address": {
+                "street_address": "778 Example St",
+                "city": "City of P1010",
+                "state": "State of P1010",
+                "zip_code": "11538"
+            }
+        },
+        {
+            "patient_id": "P1011",
+            "name": "Patient P1011",
+            "age": 80,
+            "gender": "Male",
+            "photo": "https://randomuser.me/api/portraits/men/11.jpg",
+            "phone": "763-196-4788",
+            "address": {
+                "street_address": "440 Example St",
+                "city": "City of P1011",
+                "state": "State of P1011",
+                "zip_code": "81963"
+            }
+        },
+        {
+            "patient_id": "P1012",
+            "name": "Patient P1012",
+            "age": 57,
+            "gender": "Female",
+            "photo": "https://randomuser.me/api/portraits/women/12.jpg",
+            "phone": "690-107-4319",
+            "address": {
+                "street_address": "937 Example St",
+                "city": "City of P1012",
+                "state": "State of P1012",
+                "zip_code": "62610"
+            }
+        },
+        {
+            "patient_id": "P1013",
+            "name": "Patient P1013",
+            "age": 65,
+            "gender": "Male",
+            "photo": "https://randomuser.me/api/portraits/men/13.jpg",
+            "phone": "762-256-1133",
+            "address": {
+                "street_address": "628 Example St",
+                "city": "City of P1013",
+                "state": "State of P1013",
+                "zip_code": "39430"
+            }
+        },
+        {
+            "patient_id": "P1014",
+            "name": "Patient P1014",
+            "age": 18,
+            "gender": "Female",
+            "photo": "https://randomuser.me/api/portraits/women/14.jpg",
+            "phone": "129-586-9033",
+            "address": {
+                "street_address": "985 Example St",
+                "city": "City of P1014",
+                "state": "State of P1014",
+                "zip_code": "81252"
+            }
+        }
+    ],
+    "surgeons": [
+        {
+            "name": "Dr. Smith",
+            "npi": "9952485887",
+            "specialty": "General Surgery"
+        },
+        {
+            "name": "Dr. Johnson",
+            "npi": "3290393175",
+            "specialty": "Orthopedic Surgery"
+        },
+        {
+            "name": "Dr. Williams",
+            "npi": "8303157155",
+            "specialty": "Cardiothoracic Surgery"
+        },
+        {
+            "name": "Dr. Brown",
+            "npi": "8693184545",
+            "specialty": "Neurosurgery"
+        }
+    ]
+}
