@@ -17,6 +17,14 @@ Using the provided project implement the following fullstack application:
 - A case detail page [see diagram below](#detail-page) that displays details on case, patient, and surgeon for a given case. Clicking on an item in the index should take you to the detail page.
 - Use data from [./data/cases.json](./data/cases.json) to populate these pages.
 
+### Data model
+
+The provided data is composed of:
+
+- SurgicalCase: A surgical procedures performed in an operating room on an individual.
+- Patient: A person receiving or who will receive medical care, in this case a surgical case.
+- Surgeon: A physician who will administer medical care to a patient as part of a surgical case.
+
 ### <a name="index-page"></a> Index Page
 
 ![Index Page](./data/list-page.png)
@@ -68,7 +76,9 @@ While we have suggested a stack based on what we use, you may prefer other techn
 
 To make it easier to present your finished application, it can be hosted on [Vercel](https://nextjs.org/learn-pages-router/basics/deploying-nextjs-app/deploy) or another provider of your choice.
 
-## Optional bonuses:
+## Optional bonuses (especially encouraged for takehome interviews):
 
+- Develop the ability to create new cases and patients.
+- Develop the ability to edit a case or patient.
 - Implement the search field as an auto-complete.
 - Enhance the search to be AI powered using the [TypeChat](https://microsoft.github.io/TypeChat/) library. The accompanying documentation and [examples](https://microsoft.github.io/TypeChat/docs/examples/) on their GitHub should give you clear direction. _Note this will require an OpenAI API key._
