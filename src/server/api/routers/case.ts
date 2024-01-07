@@ -4,7 +4,12 @@ import { createTRPCRouter, publicProcedure } from "~/server/api/trpc";
 
 export const caseRouter = createTRPCRouter({
   list: publicProcedure.query(({ ctx }) => {
-    return ctx.db.surgicalCase.findMany();
+    return ctx.db.surgicalCase.findMany({
+      include: {
+        patient: true,
+        surgeon: true
+      }
+    });
   }),
 
   get: publicProcedure
@@ -12,6 +17,10 @@ export const caseRouter = createTRPCRouter({
     .query(({ input, ctx }) => {
       return ctx.db.surgicalCase.findUnique({
         where: { id: input.id },
+        include: {
+          patient: true,
+          surgeon: true
+        }
       });
     }),
 

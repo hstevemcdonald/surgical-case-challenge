@@ -1,0 +1,1 @@
+If all addresses are USA based, condensed address for readability
