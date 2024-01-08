@@ -14,7 +14,6 @@ export default function Case(props) {
 
   const { patient, surgeon } = caseData;
 
-  console.log(caseData);
   const patientFields = [
     { key: "name", label: "Name:" },
     { key: "externalId", label: "External ID:" },
@@ -33,18 +32,26 @@ export default function Case(props) {
     { key: "npi", label: "NPI:" },
     { key: "specialty", label: "Specialty: " },
   ];
+
+  const handleBack = () => {
+    window.location.href = "/";
+  };
+
   return (
     <>
       <Head>
         <title>Surgical Case Data</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
+      <header className="border-b border-gray-400 bg-gray-200 p-4">
+        <h1 className="text-center text-2xl font-bold">
+          Surgical Case: {caseId}
+        </h1>
+      </header>
+
       {patient && (
-       <div className="bg-gray-100 min-h-screen">
+        <div className="min-h-screen bg-gray-100">
           <div className="container mx-auto max-w-4xl p-4">
-            <header className="flex items-center justify-center w-full p-2 rounded-md bg-gray-200">
-            <h3 className="font-bold giv">Surgical Case Data: {patient.name}</h3>
-            </header>
             <div className="flex flex-col md:flex-row">
               <div className="p-4 md:w-2/5">
                 <img
@@ -52,9 +59,15 @@ export default function Case(props) {
                   alt="Image"
                   className="m-2 w-full rounded-lg object-cover"
                 />
-              </div>              
+                <button
+                  type="button"
+                  onClick={handleBack}
+                  className="ml-2 rounded-md bg-blue-400 px-4 py-2 font-bold text-white hover:bg-gray-500"
+                >
+                  &lsaquo; Back
+                </button>
+              </div>
               <div className="p-4 md:w-3/5">
-           
                 <div className="mb-4 rounded-lg bg-white p-4 shadow-md">
                   <h3 className="mb-2 rounded-md bg-gray-200 p-2 text-lg font-bold">
                     Patient Information
@@ -144,7 +157,7 @@ export default function Case(props) {
               </div>
             </div>
           </div>
-       </div>
+        </div>
       )}
     </>
   );
