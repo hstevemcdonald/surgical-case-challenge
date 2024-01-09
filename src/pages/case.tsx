@@ -5,9 +5,8 @@ import { type Surgeon } from "~/pages/types/surgeon";
 import { type Patient } from "~/pages/types/patient";
 import moment from 'moment';
 
-/** workaround for VSCODE bug? Is adding props plugin? is adding unnecessary props param to default export*/
-// @ts-expect-error VSCODE bug
-const SurgicalCase = (_props) => {
+// @ts-expect-error VSCODE bug - unable to remove unused props param
+export default function SurgicalCase (props) {
   const searchParams = useSearchParams();
   const caseId: string | null = searchParams.get("id");
   const caseData = api.case.get.useQuery({ id: Number(caseId) }).data;
@@ -195,5 +194,3 @@ const SurgicalCase = (_props) => {
     </>
   );
 }
-
-export default SurgicalCase;
