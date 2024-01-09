@@ -237,13 +237,14 @@ export default function Home() {
                           className={
                             "px-6 py-3 text-xs font-medium uppercase tracking-wider text-gray-500 " +
                             (column.key == "caseIdLink"
-                              ? "text-right"
+                              ? "text-right font-bold text-blue-300 "
                               : "text-left")
                           }
                         >
                           {column.label}
                         </th>
                       ))}
+                      <th></th>
                     </tr>
                   </thead>
                   <tbody>
@@ -262,6 +263,7 @@ export default function Home() {
                             </td>
                           );
                         })}
+                        <td><button onClick={() => { window.location.href= `/case?id=${row.caseId}`}} className="ml-1 rounded-md bg-blue-400 hover:bg-gray-500 px-2 py-1 text-white  text-xs" >VIEW</button></td>
                       </tr>
                     ))}
                   </tbody>
