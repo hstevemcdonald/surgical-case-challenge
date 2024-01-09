@@ -25,12 +25,20 @@ export default function AddCaseModal(props: AddCaseModalProps) {
   const surgeons = autoCompleteList?.surgeons;
   
   const [caseData, setCaseData] = useState<CreateCase>(clearCaseData);
+  const [addCaseError, setAddCaseError] = useState<boolean>(false);
   const [filteredPatients, setFilteredPatients] = useState<AutoCompleteItem[]>([]);
   const [filteredSurgeons, setFilteredSurgeons] = useState<AutoCompleteItem[]>([]);
   const mutation = api.case.put.useMutation();
 
   // add case to db and refresh surgical cases list
   const handleAddCase = () => {
+    if (!Number(caseData.patientId)||!Number(caseData.surgeonId)) {
+      setAddCaseError(true);
+      setTimeout(() =>{
+        setAddCaseError(false);
+       }, 3000)
+       return;
+    }
     delete caseData.surgeonName;
     delete caseData.patientName;
     const addCase: CreateCase = {
@@ -43,6 +51,7 @@ export default function AddCaseModal(props: AddCaseModalProps) {
       convertedDateOfSurgery: moment(caseData.dateOfSurgery).format(),
     };
     mutation.mutate(addCase);
+    console.log("Adding case...", addCase)
     // close and reset fields for model
     setShowAddCaseModal(false);
     setCaseData(clearCaseData);
@@ -121,7 +130,13 @@ export default function AddCaseModal(props: AddCaseModalProps) {
                     </span>
                   </button>
                 </div>
-
+                {addCaseError && (
+                    <div className="mb-4 flex items-center bg-red-300 p-2 px-4">
+                      <h4>
+                        Error adding case.  Please select a patient and surgeon and try again.
+                      </h4>
+                    </div>
+                )}
                 <div className="bg-white px-4 pb-4 pt-5 sm:p-6 sm:pb-4">
                   <form className="space-y-3">
                     <div className="mb-6 md:flex md:items-center">
