@@ -36,7 +36,7 @@ export default function AddCaseModal(props: AddCaseModalProps) {
       setAddCaseError(true);
       setTimeout(() =>{
         setAddCaseError(false);
-       }, 3000)
+       }, 6000)
        return;
     }
     delete caseData.surgeonName;
