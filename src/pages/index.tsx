@@ -4,9 +4,9 @@ import { useCookies } from "react-cookie";
 import moment from "moment";
 
 import { api } from "~/utils/api";
-import AddCaseModal from "./components/addCase";
+import { AddCaseModal } from "./components/addCase";
 
-const displayColumns = [
+const displayColumns: { key: string, label: string }[] = [
   { key: "caseIdLink", label: "Case ID" },
   { key: "patientName", label: "Patient Name" },
   { key: "surgeonName", label: "Surgeon Name" },
@@ -14,7 +14,10 @@ const displayColumns = [
   { key: "procedure", label: "Procedure" },
 ];
 
-export default function Home(props) {
+/** workaround for VSCODE bug? Is adding props plugin? is adding unnecessary props param to default export*/
+interface emptyProps {}
+
+const Home = (props: emptyProps) => {
   const caseRowData: any[] = [];
   const surgeonData: {
     id: string;
@@ -108,11 +111,11 @@ export default function Home(props) {
         removeCookie('addCaseSuccess');
       }, 5000)
     }
-    
+
   });
 
   // update search bar
-  const handleSearchInput = (e: any) => {
+  const handleSearchInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchQuery(e.target.value);
   };
 
@@ -126,7 +129,7 @@ export default function Home(props) {
   };
 
   // search surgical cases
-  const handleSearch = (e: any) => {
+  const handleSearch = (e: React.ChangeEvent<HTMLFormElement>) => {
     e.preventDefault();
     setDisplayRows([]);
     const stripSearch = searchQuery.replace(
@@ -279,3 +282,5 @@ export default function Home(props) {
     )
   );
 }
+
+export default Home;

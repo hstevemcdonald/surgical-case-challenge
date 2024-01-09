@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { api } from "~/utils/api";
 import moment from "moment";
 
-type CaseData = {
+interface CaseData {
   patientId: number;
   externalId: string;
   patientName?: string;
@@ -15,7 +15,11 @@ type CaseData = {
   icd10Code: string;
 };
 
-export default function AddCaseModal(props) {
+interface AddCaseModalProps {
+  showAddCaseModal: any; setShowAddCaseModal: any; autoCompleteList: any; setCookie: any;
+}
+
+export function AddCaseModal(props: AddCaseModalProps) {
   const clearCaseData: CaseData = {
     patientId: 0,
     patientName: "",
@@ -65,50 +69,50 @@ export default function AddCaseModal(props) {
   };
 
   // display autocomplete list of matching patients
-  const handlePatientChange = (e: any) => {
+  const handlePatientChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
     setCaseData({ ...caseData, patientName: value });
     setFilteredPatients(
       value.length
         ? patients.filter((patient: { id: string; name: string }) => {
-            const stripSearch = value.replace(/[^a-zA-Z0-9]/, "");
-            const re = new RegExp(stripSearch, "i");
-            return patient.id.toString().match(re) || patient.name.match(re);
-          })
+          const stripSearch = value.replace(/[^a-zA-Z0-9]/, "");
+          const re = new RegExp(stripSearch, "i");
+          return patient.id.toString().match(re) || patient.name.match(re);
+        })
         : "",
     );
   };
 
   // select patient
-  const handleSelectPatient = (e: any) => {
+  const handleSelectPatient = (e: {name: string, id: number}) => {
     setCaseData({ ...caseData, patientName: e.name, patientId: e.id });
     setFilteredPatients([]);
   };
 
   // display autocomplete list of matching surgeons
-  const handleSurgeonChange = (e: any) => {
+  const handleSurgeonChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
     setCaseData({ ...caseData, surgeonName: value });
 
     setFilteredSurgeons(
       value.length
         ? surgeons.filter((surgeon: { id: string; name: string }) => {
-            const stripSearch = value.replace(/[^a-zA-Z0-9]/, "");
-            const re = new RegExp(stripSearch, "i");
-            return surgeon.name.match(re);
-          })
+          const stripSearch = value.replace(/[^a-zA-Z0-9]/, "");
+          const re = new RegExp(stripSearch, "i");
+          return surgeon.name.match(re);
+        })
         : "",
     );
   };
 
   // select Surgeon
-  const handleSelectSurgeon = (e: any) => {
+  const handleSelectSurgeon = (e: {name: string, id: number}) => {
     setCaseData({ ...caseData, surgeonName: e.name, surgeonId: e.id });
     setFilteredSurgeons([]);
   };
 
   // handle form fields
-  const handleFormFieldChange = (e: any) => {
+  const handleFormFieldChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const fieldName = e.target.id;
     const value = e.target.value;
     setCaseData({ ...caseData, [fieldName]: value });
@@ -303,3 +307,4 @@ export default function AddCaseModal(props) {
     )
   );
 }
+

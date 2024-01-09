@@ -15,6 +15,8 @@ Thanks again and I look forward to hearing from you.
 
 - Steve
 
+Note: There is a bug in my IDE that is auto-populating an unused `props` param in the main React functional component on the 'case' and 'home' pages.  Please disregard the workaround.
+
 ## TODOS:
 
 - Replace images with high-res images (new images currently in public/faces), update DB user attributes to reflect new image

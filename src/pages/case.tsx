@@ -3,7 +3,10 @@ import Head from "next/head";
 import { useSearchParams } from "next/navigation";
 import { api } from "~/utils/api";
 
-export default function Case(props) {
+/** workaround for VSCODE bug? Is adding props plugin? is adding unnecessary props param to default export*/
+interface noProps {}
+
+const Case = (empty : noProps) => {
   const searchParams = useSearchParams();
   const caseId: string | null = searchParams.get("id");
   const caseData: any = api.case.get.useQuery({ id: Number(caseId) }).data;
@@ -161,3 +164,5 @@ export default function Case(props) {
     </>
   );
 }
+
+export default Case;
