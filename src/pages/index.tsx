@@ -263,7 +263,7 @@ export default function Home() {
                             </td>
                           );
                         })}
-                        <td><button onClick={() => { window.location.href= `/case?id=${row.caseId}`}} className="ml-1 rounded-md bg-blue-400 hover:bg-gray-500 px-2 py-1 text-white  text-xs" >VIEW</button></td>
+                        <td><button onClick={() => { window.location.href= `/case?id=${row.caseId}`}} className="ml-1 mr-6 mb-1 rounded-md bg-blue-400 hover:bg-gray-500 px-2 py-1 text-white  text-xs" >VIEW</button></td>
                       </tr>
                     ))}
                   </tbody>
