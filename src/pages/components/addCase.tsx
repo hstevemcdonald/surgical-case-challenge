@@ -18,9 +18,9 @@ export default function AddCaseModal(_props) {
     icd10Code: "",
   };
 
-  const showAddCaseModal = props.showAddCaseModal;
-  const setShowAddCaseModal = props.setShowAddCaseModal;
-  const autoCompleteList = props.autoCompleteList;
+  const showAddCaseModal = _props.showAddCaseModal;
+  const setShowAddCaseModal = _props.setShowAddCaseModal;
+  const autoCompleteList = _props.autoCompleteList;
 
   const { patients, surgeons } = autoCompleteList;
   const [caseData, setCaseData] = useState<CreateCase>(clearCaseData);
