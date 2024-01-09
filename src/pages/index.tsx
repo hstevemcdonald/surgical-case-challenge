@@ -130,12 +130,14 @@ const Home = (_props) => {
   const handleSearch = (e: React.ChangeEvent<HTMLFormElement>) => {
     e.preventDefault();
     setDisplayRows([]);
-    const stripSearch = searchQuery.replace(
-      /[^a-zA-Z0-9]/,
-      "",
-    );
-    setSearchQueryFinal(stripSearch);
-    setCookie("search", stripSearch);
+    if (searchQuery) {
+      const stripSearch = searchQuery.replace(
+        /[^a-zA-Z0-9]/,
+        "",
+      );
+      setSearchQueryFinal(stripSearch);
+      setCookie("search", stripSearch);
+    }
     setLoaded(false);
   };
 
