@@ -15,7 +15,7 @@ Thanks again and I look forward to hearing from you.
 
 - Steve
 
-Note: There is a bug in my IDE that is auto-populating an unused `props` param in the main React functional component on the 'case' and 'home' pages.  Please disregard the workaround.
+Note: There is a bug in my IDE that is auto-populating an unused `props` param in the React functional component on the 'case' and 'home' pages.  Please disregard the workaround as I did not have the bandwidth to completely fix the issue.
 
 ## TODOS:
 

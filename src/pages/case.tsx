@@ -4,9 +4,11 @@ import { useSearchParams } from "next/navigation";
 import { api } from "~/utils/api";
 
 /** workaround for VSCODE bug? Is adding props plugin? is adding unnecessary props param to default export*/
-interface noProps {}
+interface noProps {
+  noProps: boolean;
+}
 
-const Case = (empty : noProps) => {
+const Case = (props : noProps) => {
   const searchParams = useSearchParams();
   const caseId: string | null = searchParams.get("id");
   const caseData: any = api.case.get.useQuery({ id: Number(caseId) }).data;
