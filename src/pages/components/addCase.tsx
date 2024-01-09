@@ -1,10 +1,9 @@
 import React, { useState } from "react";
 import { api } from "~/utils/api";
 import moment from "moment";
-import { type CreateCase,  type AutoCompleteItem } from "~/pages/types/case";
+import { type CreateCase,  type AddCaseModalProps, type AutoCompleteItem } from "~/pages/types/case";
 
-// @ts-expect-error VSCODE bug - unable to remove unused props param
-export default function AddCaseModal(_props) {
+export default function AddCaseModal(props: AddCaseModalProps) {
   const clearCaseData: CreateCase = {
     patientName: "",
     externalId: "",
@@ -18,9 +17,9 @@ export default function AddCaseModal(_props) {
     icd10Code: "",
   };
 
-  const showAddCaseModal = _props.showAddCaseModal;
-  const setShowAddCaseModal = _props.setShowAddCaseModal;
-  const autoCompleteList = _props.autoCompleteList;
+  const showAddCaseModal = props.showAddCaseModal;
+  const setShowAddCaseModal = props.setShowAddCaseModal;
+  const autoCompleteList = props.autoCompleteList;
 
   const { patients, surgeons } = autoCompleteList;
   const [caseData, setCaseData] = useState<CreateCase>(clearCaseData);
