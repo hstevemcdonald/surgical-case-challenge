@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { api } from "~/utils/api";
 import moment from "moment";
-import { type CreateCase, type Case, type AddCaseModalProps, type AutoCompleteItem } from "~/pages/types/case";
+import { type CreateCase, type AddCaseModalProps, type AutoCompleteItem } from "~/pages/types/case";
 
-export function AddCaseModal(props: AddCaseModalProps) {
+export default function AddCaseModal(props) {
   const clearCaseData: CreateCase = {
     patientName: "",
     externalId: "",
@@ -20,7 +20,7 @@ export function AddCaseModal(props: AddCaseModalProps) {
   const showAddCaseModal = props.showAddCaseModal;
   const setShowAddCaseModal = props.setShowAddCaseModal;
   const autoCompleteList = props.autoCompleteList;
-  
+
   const { patients, surgeons } = autoCompleteList;
   const [caseData, setCaseData] = useState<CreateCase>(clearCaseData);
   const [filteredPatients, setFilteredPatients] = useState<AutoCompleteItem[]>([]);
@@ -76,10 +76,10 @@ export function AddCaseModal(props: AddCaseModalProps) {
   const handleSurgeonChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
     const newFilteredSurgeons: AutoCompleteItem[] = value.length ? surgeons.filter((surgeon: AutoCompleteItem) => {
-        const stripSearch = value.replace(/[^a-zA-Z0-9]/, "");
-        const re = new RegExp(stripSearch, "i");
-        return surgeon.name.match(re);
-      })
+      const stripSearch = value.replace(/[^a-zA-Z0-9]/, "");
+      const re = new RegExp(stripSearch, "i");
+      return surgeon.name.match(re);
+    })
       : [];
     setCaseData({ ...caseData, surgeonName: value });
     setFilteredSurgeons(newFilteredSurgeons);

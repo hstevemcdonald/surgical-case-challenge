@@ -1,10 +1,10 @@
 import Head from "next/head";
-import { useState, useEffect, SetStateAction } from "react";
+import { useState, useEffect } from "react";
 import { useCookies } from "react-cookie";
 import moment from "moment";
 
 import { api } from "~/utils/api";
-import { AddCaseModal } from "./components/addCase";
+import AddCaseModal from "./components/addCase";
 import { type KeyLabel, type AutoCompleteItem, type AutoCompleteList, type Case } from "./types/case";
 
 const displayColumns: KeyLabel[] = [
