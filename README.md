@@ -9,7 +9,7 @@ I opted to complete the main assignment, then do something a bit different for t
 
 There is quite a bit I would have liked to do if I had time, but I prioritized the main functions and the 'Add Case' fucntionality as I thought that may be the main priority given the 'backend' component of this project was very low in complexity.
 
-If there was time and bandwidth, these are the tasks that I would do to.  I would welcome an opportunity to pick one or more of these to work on in the next stage of the interview (please let me know which in advance).
+If there was time and bandwidth, these are the tasks that I would do to and/or suggest as part of a PR.  I would welcome an opportunity to pick one or more of these to work on in the next stage of the interview (please let me know which in advance).
 
 Thanks again and I look forward to hearing from you.
 
@@ -18,6 +18,7 @@ Thanks again and I look forward to hearing from you.
 ## TODOS:
 
 - Replace images with high-res images (new images currently in public/faces), update DB user attributes to reflect new image
+- Create additional components that can be reused to reduce code footprint on primary pages and in general
 - Consolidate handlers for any/all autocomplete fields
 - Add "Time of surgery" to db and all views (I presume this would be important)
 - Create/consolidate utility/helper functions to reduce code
@@ -26,7 +27,7 @@ Thanks again and I look forward to hearing from you.
 - Restrict the entry of information in Patient and Surgeon fields to matching autocomplete results only
 - Update params types/interface references
 - Add sort feature for columns on case list
-- Print "Surgical Case" page
+- Add print/download PDF option for "Surgical Case" page
 - Unit tests
 
 ## On the 'Add Case' form/operation:
@@ -37,4 +38,4 @@ Thanks again and I look forward to hearing from you.
 - Add Case # to 'Case Added' confirmation
 - Combine Diagnosis text and Diagnosis code into autocomplete list
 - Indicate if External ID is already in use and display error
-
+- Fix 'key' errors with autocomplete
