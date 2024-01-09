@@ -15,7 +15,7 @@ const displayColumns: { key: string, label: string }[] = [
 ];
 
 /** workaround for VSCODE bug? Is adding props plugin? is adding unnecessary props param to default export*/
-// @ts-ignore
+// @ts-expect-error
 const Home = (props) => {
   const caseRowData: any[] = [];
   const surgeonData: {

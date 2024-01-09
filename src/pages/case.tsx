@@ -4,7 +4,7 @@ import { useSearchParams } from "next/navigation";
 import { api } from "~/utils/api";
 
 /** workaround for VSCODE bug? Is adding props plugin? is adding unnecessary props param to default export*/
-// @ts-ignore
+// @ts-expect-error
 const Case = (props) => {
   const searchParams = useSearchParams();
   const caseId: string | null = searchParams.get("id");
