@@ -22,14 +22,14 @@ export default function AddCaseModal(props: AddCaseModalProps) {
   const autoCompleteList = props.autoCompleteList;
 
   const patients = autoCompleteList?.patients;
-  const surgeons = autoCompleteList?.patients;
+  const surgeons = autoCompleteList?.surgeons;
   
   const [caseData, setCaseData] = useState<CreateCase>(clearCaseData);
   const [filteredPatients, setFilteredPatients] = useState<AutoCompleteItem[]>([]);
   const [filteredSurgeons, setFilteredSurgeons] = useState<AutoCompleteItem[]>([]);
   const mutation = api.case.put.useMutation();
 
-  // add case to db
+  // add case to db and refresh surgical cases list
   const handleAddCase = () => {
     delete caseData.surgeonName;
     delete caseData.patientName;
@@ -83,6 +83,7 @@ export default function AddCaseModal(props: AddCaseModalProps) {
       return surgeon.name.match(re);
     })
       : [];
+
     setCaseData({ ...caseData, surgeonName: value });
     setFilteredSurgeons(newFilteredSurgeons);
   };
