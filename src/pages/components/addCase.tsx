@@ -21,7 +21,9 @@ export default function AddCaseModal(props: AddCaseModalProps) {
   const setShowAddCaseModal = props.setShowAddCaseModal;
   const autoCompleteList = props.autoCompleteList;
 
-  const { patients, surgeons } = autoCompleteList;
+  const patients = autoCompleteList?.patients;
+  const surgeons = autoCompleteList?.patients;
+  
   const [caseData, setCaseData] = useState<CreateCase>(clearCaseData);
   const [filteredPatients, setFilteredPatients] = useState<AutoCompleteItem[]>([]);
   const [filteredSurgeons, setFilteredSurgeons] = useState<AutoCompleteItem[]>([]);
