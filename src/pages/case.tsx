@@ -1,34 +1,42 @@
-import moment from "moment";
 import Head from "next/head";
 import { useSearchParams } from "next/navigation";
 import { api } from "~/utils/api";
+import { type Surgeon } from "~/pages/types/surgeon";
+import { type Patient } from "~/pages/types/patient";
+import moment from 'moment';
+
+interface FormField {
+  key: string;
+  label: string;
+}
 
 /** workaround for VSCODE bug? Is adding props plugin? is adding unnecessary props param to default export*/
 // @ts-expect-error VSCODE bug
-const Case = (props) => {
+const SurgicalCase = (_props) => {
   const searchParams = useSearchParams();
   const caseId: string | null = searchParams.get("id");
-  const caseData: any = api.case.get.useQuery({ id: Number(caseId) }).data;
+  const caseData = api.case.get.useQuery({ id: Number(caseId) }).data;
+
   if (!caseData) {
     return <></>;
   }
 
-  const { patient, surgeon } = caseData;
-
-  const patientFields = [
+  const patient: Patient = caseData.patient;
+  const surgeon: Surgeon = caseData.surgeon;
+  const patientFields: FormField[] = [
     { key: "name", label: "Name:" },
     { key: "age", label: "Age:" },
     { key: "gender", label: "Gender:" },
     { key: "phone", label: "Phone:" },
   ];
-  const caseFields = [
+  const caseFields:FormField[] = [
     { key: "externalId", label: "External ID:" },
     { key: "icd10Code", label: "10 Diagnosis Code:" },
     { key: "diagnosis", label: "Diagnosis:" },
     { key: "procedure", label: "Procedure:" },
     { key: "dateOfSurgery", label: "Date of Surgery:" },
   ];
-  const surgeonFields = [
+  const surgeonFields: FormField[] = [
     { key: "name", label: "Name:" },
     { key: "npi", label: "NPI:" },
     { key: "specialty", label: "Specialty: " },
@@ -74,7 +82,7 @@ const Case = (props) => {
                     Patient Information
                   </h3>
                   <div className="grid grid-cols-5 gap-2">
-                    {patientFields.map((field: any) => {
+                    {patientFields.map((field: FormField) => {
                       const c1 = (
                         <div className="col-span-2">
                           <p className="text-right">
@@ -84,7 +92,7 @@ const Case = (props) => {
                       );
                       const c2 = (
                         <div className="col-span-3">
-                          <p>{patient[field.key]}</p>
+                          <p>{patient[field.key as keyof Patient]}</p>
                         </div>
                       );
                       return [c1, c2];
@@ -110,7 +118,7 @@ const Case = (props) => {
                     Case Information
                   </h3>
                   <div className="grid grid-cols-5 gap-2">
-                    {caseFields.map((field: any) => {
+                    {caseFields.map((field: FormField) => {
                       const c1 = (
                         <div className="col-span-2">
                           <p className="text-right">
@@ -118,12 +126,11 @@ const Case = (props) => {
                           </p>
                         </div>
                       );
-                      const c2Value =
-                        field.key === "dateOfSurgery"
-                          ? moment(caseData[field.key]).format(
-                              "MM/DD/YYYY",
-                            )
-                          : caseData[field.key];
+                      
+                      let c2Value = caseData[field.key as keyof typeof caseData];
+                      if (c2Value instanceof Date) {
+                        c2Value = moment(c2Value).format("MM-DD-YYYY");
+                      }
                       const c2 = (
                         <div className="col-span-3">
                           <p>{c2Value}</p>
@@ -138,7 +145,7 @@ const Case = (props) => {
                     Surgeon Information
                   </h3>
                   <div className="grid grid-cols-5 gap-2">
-                    {surgeonFields.map((field: any) => {
+                    {surgeonFields.map((field: FormField) => {
                       const c1 = (
                         <div className="col-span-2">
                           <p className="text-right">
@@ -148,7 +155,7 @@ const Case = (props) => {
                       );
                       const c2 = (
                         <div className="col-span-3">
-                          <p>{surgeon[field.key]}</p>
+                          <p>{surgeon[field.key as keyof Surgeon]}</p>
                         </div>
                       );
                       return [c1, c2];
@@ -164,4 +171,4 @@ const Case = (props) => {
   );
 }
 
-export default Case;
+export default SurgicalCase;

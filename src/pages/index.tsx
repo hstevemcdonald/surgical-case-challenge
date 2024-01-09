@@ -1,12 +1,13 @@
 import Head from "next/head";
-import { useState, useEffect } from "react";
+import { useState, useEffect, SetStateAction } from "react";
 import { useCookies } from "react-cookie";
 import moment from "moment";
 
 import { api } from "~/utils/api";
 import { AddCaseModal } from "./components/addCase";
+import { type KeyLabel, type AutoCompleteItem, type AutoCompleteList, type Case } from "./types/case";
 
-const displayColumns: { key: string, label: string }[] = [
+const displayColumns: KeyLabel[] = [
   { key: "caseIdLink", label: "Case ID" },
   { key: "patientName", label: "Patient Name" },
   { key: "surgeonName", label: "Surgeon Name" },
@@ -16,27 +17,24 @@ const displayColumns: { key: string, label: string }[] = [
 
 /** workaround for VSCODE bug? Is adding props plugin? is adding unnecessary props param to default export*/
 // @ts-expect-error VSCODE bug
-const Home = (props) => {
-  const caseRowData: any[] = [];
-  const surgeonData: {
-    id: string;
-    name: string;
-  }[] = [];
-  const patientData: {
-    id: string;
-    name: string;
-  }[] = [];
-  const [cookies, setCookie, removeCookie] = useCookies(["search", "addCaseSuccess"]);
+const Home = (_props) => {
+  const caseRowData: Case[] = [];
+  const surgeonData: AutoCompleteItem[] = [];
+  const patientData: AutoCompleteItem[] = [];
+
+  const [cookies, setCookie, removeCookie] = useCookies<string>(["search", "addCaseSuccess"])
+  
   const [searchQuery, setSearchQuery] = useState<string>("");
   const [searchQueryFinal, setSearchQueryFinal] = useState<string>("");
-  const [displayRows, setDisplayRows] = useState<any[]>(caseRowData);
-  const [loaded, setLoaded] = useState(false);
+  const [displayRows, setDisplayRows] = useState<Case[]>(caseRowData);
+  const [loaded, setLoaded] = useState<boolean>(false);
   const [showAddCaseModal, setShowAddCaseModal] = useState<boolean>(false);
-  const [autoCompleteList, setAutoCompleteList] = useState<any>({
+  const [autoCompleteList, setAutoCompleteList] = useState<AutoCompleteList>({
     surgeons: surgeonData,
     patients: patientData,
   });
   const [showAddCaseSuccess, setShowAddCaseSuccess] = useState<boolean>(false);
+  
   const cases = api.case.list.useQuery().data;
 
   useEffect(() => {
@@ -46,30 +44,31 @@ const Home = (props) => {
 
     // returning to page from search result, so save the state in cookie
     if (cookies?.search != undefined && cookies.search != searchQueryFinal) {
-      setSearchQuery(cookies.search);
-      setSearchQueryFinal(cookies.search);
+      const searchString: string = cookies.search as string;
+      setSearchQuery(searchString);
+      setSearchQueryFinal(searchString);
       return;
     }
 
     // prepare patient/surgeon list for autocomplete
     if (autoCompleteList.surgeons.length == 0) {
-      const list: any = {};
-      cases.forEach((caseData: any) => {
+      const list: Record<string, boolean> = {};
+      cases.forEach((caseData) => {
         const { patient, surgeon } = caseData;
-        if (!list[patient["id"]]) {
+        if (!list[patient.id]) {
           autoCompleteList.patients.push({
-            id: patient["id"],
-            name: patient["name"],
-            externalId: patient["externalId"],
+            id: patient.id,
+            name: patient.name,
+            externalId: patient.externalId,
           });
-          list[patient["id"]] = true;
+          list[patient.id] = true;
         }
-        if (!list[surgeon["id"]]) {
+        if (!list[surgeon.id]) {
           autoCompleteList.surgeons.push({
-            id: surgeon["id"],
-            name: surgeon["name"],
+            id: surgeon.id,
+            name: surgeon.name,
           });
-          list[surgeon["id"]] = true;
+          list[surgeon.id] = true;
         }
       });
       setAutoCompleteList(autoCompleteList);
@@ -79,9 +78,9 @@ const Home = (props) => {
     const regexString = searchQueryFinal ? searchQueryFinal : "";
     const re = new RegExp(regexString, "i");
     cases
-      .filter((caseData: any) => {
+      .filter((caseData) => {
         return (
-          caseData.patient.name.match(re) || caseData.externalId.toString().match(re)
+          caseData.patient.name.match(re) ?? caseData.externalId.toString().match(re)
         );
       })
       .forEach((caseData) => {
@@ -103,7 +102,7 @@ const Home = (props) => {
     setDisplayRows(displayRows);
     setLoaded(true);
 
-    if (cookies['addCaseSuccess']) {
+    if (cookies.addCaseSuccess) {
       setShowAddCaseSuccess(true);
       setTimeout(() => {
         setShowAddCaseSuccess(false);
@@ -232,7 +231,7 @@ const Home = (props) => {
                 <table className="min-w-full divide-y divide-gray-200">
                   <thead className="bg-gray-50">
                     <tr key="tableHeader">
-                      {displayColumns.map((column) => (
+                      {displayColumns.map((column: KeyLabel) => (
                         <th
                           key={column.key}
                           className={
@@ -248,9 +247,9 @@ const Home = (props) => {
                     </tr>
                   </thead>
                   <tbody>
-                    {displayRows.map((row: any) => (
-                      <tr key={row.key} className="bg-white hover:bg-gray-100">
-                        {displayColumns.map((column: any) => {
+                    {displayRows.map((row) => (
+                      <tr key={row.externalId} className="bg-white hover:bg-gray-100">
+                        {displayColumns.map((column: KeyLabel) => {
                           return (
                             <td
                               key={column.key}
@@ -259,7 +258,7 @@ const Home = (props) => {
                                 (column.key == "caseIdLink" && " text-right")
                               }
                             >
-                              {row[column.key]}
+                              {row[column.key as keyof Case]}
                             </td>
                           );
                         })}

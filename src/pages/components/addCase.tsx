@@ -1,26 +1,10 @@
 import React, { useState } from "react";
 import { api } from "~/utils/api";
 import moment from "moment";
-
-interface CaseData {
-  patientId: number;
-  externalId: string;
-  patientName?: string;
-  surgeonId: number;
-  surgeonName?: string;
-  procedure: string;
-  diagnosis: string;
-  dateOfSurgery?: string;
-  convertedDateOfSurgery: Date;
-  icd10Code: string;
-};
-
-interface AddCaseModalProps {
-  showAddCaseModal: any; setShowAddCaseModal: any; autoCompleteList: any; setCookie: any;
-}
+import { type Case, type AddCaseModalProps, type AutoCompleteItem } from "~/pages/types/case";
 
 export function AddCaseModal(props: AddCaseModalProps) {
-  const clearCaseData: CaseData = {
+  const clearCaseData: Case = {
     patientId: 0,
     patientName: "",
     externalId: "",
@@ -29,31 +13,33 @@ export function AddCaseModal(props: AddCaseModalProps) {
     procedure: "",
     diagnosis: "",
     dateOfSurgery: "",
-    convertedDateOfSurgery: new Date(),
+    convertedDateOfSurgery: "",
     icd10Code: "",
   };
 
-  const { showAddCaseModal, setShowAddCaseModal, autoCompleteList, setCookie } = props;
+  const showAddCaseModal = props.showAddCaseModal;
+  const setShowAddCaseModal = props.setShowAddCaseModal;
+  const autoCompleteList = props.autoCompleteList;
+  const setCookie = props.setCookie;
   const { patients, surgeons } = autoCompleteList;
-  const [caseData, setCaseData] = useState<any>(clearCaseData);
-  const [filteredPatients, setFilteredPatients] = useState<any[]>([]);
-  const [filteredSurgeons, setFilteredSurgeons] = useState<any[]>([]);
+  const [caseData, setCaseData] = useState<Case>(clearCaseData);
+  const [filteredPatients, setFilteredPatients] = useState<AutoCompleteItem[]>([]);
+  const [filteredSurgeons, setFilteredSurgeons] = useState<AutoCompleteItem[]>([]);
   const mutation = api.case.put.useMutation();
 
   // add case to db
   const handleAddCase = () => {
     delete caseData.surgeonName;
     delete caseData.patientName;
-    const newCase: CaseData = {
+    const newCase: Case = {
       patientId: Number(caseData.patientId),
       surgeonId: Number(caseData.surgeonId),
       diagnosis: caseData.diagnosis,
       procedure: caseData.procedure,
       icd10Code: caseData.icd10Code,
       externalId: caseData.externalId,
-      convertedDateOfSurgery: moment(caseData.dateOfSurgery).toDate(),
+      convertedDateOfSurgery: moment(caseData.dateOfSurgery).format(),
     };
-    console.log(newCase)
     mutation.mutate(newCase);
     // close and reset fields for model
     setShowAddCaseModal(false);
@@ -71,20 +57,18 @@ export function AddCaseModal(props: AddCaseModalProps) {
   // display autocomplete list of matching patients
   const handlePatientChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
+    const newFilteredPatients: AutoCompleteItem[] = value.length ? patients.filter((patient: AutoCompleteItem) => {
+      const stripSearch = value.replace(/[^a-zA-Z0-9]/, "");
+      const re = new RegExp(stripSearch, "i");
+      return patient.id.toString().match(re) ?? patient.name.match(re);
+    })
+      : [];
     setCaseData({ ...caseData, patientName: value });
-    setFilteredPatients(
-      value.length
-        ? patients.filter((patient: { id: string; name: string }) => {
-          const stripSearch = value.replace(/[^a-zA-Z0-9]/, "");
-          const re = new RegExp(stripSearch, "i");
-          return patient.id.toString().match(re) || patient.name.match(re);
-        })
-        : "",
-    );
+    setFilteredPatients(newFilteredPatients);
   };
 
   // select patient
-  const handleSelectPatient = (e: {name: string, id: number}) => {
+  const handleSelectPatient = (e: { name: string, id: number }) => {
     setCaseData({ ...caseData, patientName: e.name, patientId: e.id });
     setFilteredPatients([]);
   };
@@ -92,21 +76,18 @@ export function AddCaseModal(props: AddCaseModalProps) {
   // display autocomplete list of matching surgeons
   const handleSurgeonChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
+    const newFilteredSurgeons: AutoCompleteItem[] = value.length ? surgeons.filter((surgeon: AutoCompleteItem) => {
+        const stripSearch = value.replace(/[^a-zA-Z0-9]/, "");
+        const re = new RegExp(stripSearch, "i");
+        return surgeon.name.match(re);
+      })
+      : [];
     setCaseData({ ...caseData, surgeonName: value });
-
-    setFilteredSurgeons(
-      value.length
-        ? surgeons.filter((surgeon: { id: string; name: string }) => {
-          const stripSearch = value.replace(/[^a-zA-Z0-9]/, "");
-          const re = new RegExp(stripSearch, "i");
-          return surgeon.name.match(re);
-        })
-        : "",
-    );
+    setFilteredSurgeons(newFilteredSurgeons);
   };
 
   // select Surgeon
-  const handleSelectSurgeon = (e: {name: string, id: number}) => {
+  const handleSelectSurgeon = (e: { name: string, id: number }) => {
     setCaseData({ ...caseData, surgeonName: e.name, surgeonId: e.id });
     setFilteredSurgeons([]);
   };

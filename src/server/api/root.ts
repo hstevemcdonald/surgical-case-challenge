@@ -1,5 +1,5 @@
 import { userRouter } from "~/server/api/routers/user";
-import { createTRPCRouter, publicProcedure } from "~/server/api/trpc";
+import { createTRPCRouter } from "~/server/api/trpc";
 import { caseRouter } from "./routers/case";
 
 /**

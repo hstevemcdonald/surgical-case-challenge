@@ -23,7 +23,7 @@ export const caseRouter = createTRPCRouter({
       });
     }),
   put: publicProcedure
-    .input(z.object({ diagnosis: z.string(), convertedDateOfSurgery: z.date(), procedure: z.string(), icd10Code: z.string(), surgeonId: z.number(), patientId: z.number(), externalId: z.string() }))
+    .input(z.object({ diagnosis: z.string(), convertedDateOfSurgery: z.string(), procedure: z.string(), icd10Code: z.string(), surgeonId: z.number(), patientId: z.number(), externalId: z.string() }))
     .mutation(({ input, ctx }) => {
       return ctx.db.surgicalCase.create({
         data: {
@@ -33,7 +33,7 @@ export const caseRouter = createTRPCRouter({
           diagnosis: input.diagnosis,
           procedure: input.procedure,
           icd10Code: input.icd10Code,
-          dateOfSurgery: input.convertedDateOfSurgery
+          dateOfSurgery: new Date(input.convertedDateOfSurgery)
         }
       })
     }),
