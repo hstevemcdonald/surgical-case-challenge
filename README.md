@@ -1,7 +1,7 @@
 
 Hello!
 
-Thanks for the opportunity to do this take-home project!  It was a lot of fun and I learned quite a bit.  Until now, my implementation of features in React + Typescript has been on an completed application/platform where the structure/framework for was established and mature in so far as code setup and best practices.  I was able to see where there were opportunities for learning React/Typescript doing many things from scratch in this project vs adding features to a completed and optimized application.
+Thanks for the opportunity to do this take-home project!  It was a lot of fun and I learned quite a bit.  Until now, my implementation of features in React + Typescript has been on an completed application/platform where the structure/framework was established and mature in so far as code setup and best practices.  I was able to see where there were opportunities for learning React/Typescript doing many things from scratch in this project vs adding features to a completed and optimized application.
 
 Here is the app for review:
 https://surgical-case-data-challenge-43db215d69e6.herokuapp.com/
