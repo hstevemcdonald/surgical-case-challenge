@@ -84,12 +84,12 @@ const Home = (_props) => {
         );
       })
       .forEach((caseData) => {
-        const href = `/case?id=${caseData.id}`;
-        const idLink = <a href={href}>#{caseData.externalId}</a>;
         displayRows.push({
-          key: caseData.id,
-          patientId: caseData.externalId,
-          caseIdLink: idLink,
+          surgeonId: caseData.surgeonId,
+          caseId: caseData.id,
+          externalId: caseData.externalId,
+          diagnosis: caseData.diagnosis,
+          icd10Code: caseData.icd10Code,
           patientName: caseData.patient.name,
           surgeonName: caseData.surgeon.name,
           dateOfSurgery: moment(caseData.dateOfSurgery.toString()).format(
@@ -258,7 +258,7 @@ const Home = (_props) => {
                                 (column.key == "caseIdLink" && " text-right")
                               }
                             >
-                              {row[column.key as keyof Case]}
+                              {column.key == "caseIdLink" ? <a href={`/case?id=${row.caseId}`}>#{row.externalId}</a> : row[column.key as keyof Case]}
                             </td>
                           );
                         })}
@@ -272,7 +272,6 @@ const Home = (_props) => {
           <AddCaseModal
             showAddCaseModal={showAddCaseModal}
             setShowAddCaseModal={setShowAddCaseModal}
-            setCookie={setCookie}
             autoCompleteList={autoCompleteList}
           />
         </main>

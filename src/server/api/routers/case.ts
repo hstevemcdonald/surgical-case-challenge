@@ -41,17 +41,3 @@ export const caseRouter = createTRPCRouter({
     return ctx.db.surgicalCase.findFirst();
   }),
 });
-// .input(z.object({ externalId: z.string() }))
-// id            Int      @id @default(autoincrement())
-//     externalId    String   @unique
-//     patientId     Int
-//     patient       Patient  @relation(fields: [patientId], references: [id])
-//     surgeonId     Int
-//     surgeon       Surgeon  @relation(fields: [surgeonId], references: [id])
-//     dateOfSurgery DateTime
-//     diagnosis     String
-//     procedure     String
-//     icd10Code     String
-//     createdAt     DateTime @default(now())
-//     updatedAt     DateTime @updatedAt
-

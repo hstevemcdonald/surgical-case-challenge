@@ -5,11 +5,6 @@ import { type Surgeon } from "~/pages/types/surgeon";
 import { type Patient } from "~/pages/types/patient";
 import moment from 'moment';
 
-interface FormField {
-  key: string;
-  label: string;
-}
-
 /** workaround for VSCODE bug? Is adding props plugin? is adding unnecessary props param to default export*/
 // @ts-expect-error VSCODE bug
 const SurgicalCase = (_props) => {
@@ -23,24 +18,6 @@ const SurgicalCase = (_props) => {
 
   const patient: Patient = caseData.patient;
   const surgeon: Surgeon = caseData.surgeon;
-  const patientFields: FormField[] = [
-    { key: "name", label: "Name:" },
-    { key: "age", label: "Age:" },
-    { key: "gender", label: "Gender:" },
-    { key: "phone", label: "Phone:" },
-  ];
-  const caseFields:FormField[] = [
-    { key: "externalId", label: "External ID:" },
-    { key: "icd10Code", label: "10 Diagnosis Code:" },
-    { key: "diagnosis", label: "Diagnosis:" },
-    { key: "procedure", label: "Procedure:" },
-    { key: "dateOfSurgery", label: "Date of Surgery:" },
-  ];
-  const surgeonFields: FormField[] = [
-    { key: "name", label: "Name:" },
-    { key: "npi", label: "NPI:" },
-    { key: "specialty", label: "Specialty: " },
-  ];
 
   const handleBack = () => {
     window.location.href = "/";
@@ -82,21 +59,38 @@ const SurgicalCase = (_props) => {
                     Patient Information
                   </h3>
                   <div className="grid grid-cols-5 gap-2">
-                    {patientFields.map((field: FormField) => {
-                      const c1 = (
-                        <div className="col-span-2">
-                          <p className="text-right">
-                            <strong>{field.label}</strong>
-                          </p>
-                        </div>
-                      );
-                      const c2 = (
-                        <div className="col-span-3">
-                          <p>{patient[field.key as keyof Patient]}</p>
-                        </div>
-                      );
-                      return [c1, c2];
-                    })}
+                    <div className="col-span-2">
+                      <p className="text-right">
+                        <strong>Name:</strong>
+                      </p>
+                    </div>
+                    <div className="col-span-3">
+                      <p>{patient.name}</p>
+                    </div>
+                    <div className="col-span-2">
+                      <p className="text-right">
+                        <strong>Age:</strong>
+                      </p>
+                    </div>
+                    <div className="col-span-3">
+                      <p>{patient.age}</p>
+                    </div>
+                    <div className="col-span-2">
+                      <p className="text-right">
+                        <strong>Gender:</strong>
+                      </p>
+                    </div>
+                    <div className="col-span-3">
+                      <p>{patient.gender}</p>
+                    </div>
+                    <div className="col-span-2">
+                      <p className="text-right">
+                        <strong>Phone:</strong>
+                      </p>
+                    </div>
+                    <div className="col-span-3">
+                      <p>{patient.phone}</p>
+                    </div>
                     <div className="col-span-2">
                       <p className="text-right">
                         <strong>Address:</strong>
@@ -118,26 +112,47 @@ const SurgicalCase = (_props) => {
                     Case Information
                   </h3>
                   <div className="grid grid-cols-5 gap-2">
-                    {caseFields.map((field: FormField) => {
-                      const c1 = (
-                        <div className="col-span-2">
-                          <p className="text-right">
-                            <strong>{field.label}</strong>
-                          </p>
-                        </div>
-                      );
-                      
-                      let c2Value = caseData[field.key as keyof typeof caseData];
-                      if (c2Value instanceof Date) {
-                        c2Value = moment(c2Value).format("MM-DD-YYYY");
-                      }
-                      const c2 = (
-                        <div className="col-span-3">
-                          <p>{c2Value}</p>
-                        </div>
-                      );
-                      return [c1, c2];
-                    })}
+
+                    <div className="col-span-2">
+                      <p className="text-right">
+                        <strong>External ID::</strong>
+                      </p>
+                    </div>
+                    <div className="col-span-3">
+                      <p>{caseData.externalId}</p>
+                    </div>
+                    <div className="col-span-2">
+                      <p className="text-right">
+                        <strong>10 Diagnosis Code:</strong>
+                      </p>
+                    </div>
+                    <div className="col-span-3">
+                      <p>{caseData.icd10Code}</p>
+                    </div>
+                    <div className="col-span-2">
+                      <p className="text-right">
+                        <strong>Diagnosis:</strong>
+                      </p>
+                    </div>
+                    <div className="col-span-3">
+                      <p>{caseData.diagnosis}</p>
+                    </div>
+                    <div className="col-span-2">
+                      <p className="text-right">
+                        <strong>Procedure:</strong>
+                      </p>
+                    </div>
+                    <div className="col-span-3">
+                      <p>{caseData.procedure}</p>
+                    </div>
+                    <div className="col-span-2">
+                      <p className="text-right">
+                        <strong>Date of Surgery:</strong>
+                      </p>
+                    </div>
+                    <div className="col-span-3">
+                      <p>{moment(caseData.dateOfSurgery).format("MM-DD-YYYY")}</p>
+                    </div>
                   </div>
                 </div>
                 <div className="mb-4 rounded-lg bg-white p-4 shadow-md">
@@ -145,21 +160,31 @@ const SurgicalCase = (_props) => {
                     Surgeon Information
                   </h3>
                   <div className="grid grid-cols-5 gap-2">
-                    {surgeonFields.map((field: FormField) => {
-                      const c1 = (
-                        <div className="col-span-2">
-                          <p className="text-right">
-                            <strong>{field.label}</strong>
-                          </p>
-                        </div>
-                      );
-                      const c2 = (
-                        <div className="col-span-3">
-                          <p>{surgeon[field.key as keyof Surgeon]}</p>
-                        </div>
-                      );
-                      return [c1, c2];
-                    })}
+
+                    <div className="col-span-2">
+                      <p className="text-right">
+                        <strong>Name:</strong>
+                      </p>
+                    </div>
+                    <div className="col-span-3">
+                      <p>{surgeon.name}</p>
+                    </div>
+                    <div className="col-span-2">
+                      <p className="text-right">
+                        <strong>NPI:</strong>
+                      </p>
+                    </div>
+                    <div className="col-span-3">
+                      <p>{surgeon.npi}</p>
+                    </div>
+                    <div className="col-span-2">
+                      <p className="text-right">
+                        <strong>Specialty:</strong>
+                      </p>
+                    </div>
+                    <div className="col-span-3">
+                      <p>{surgeon.specialty}</p>
+                    </div>
                   </div>
                 </div>
               </div>

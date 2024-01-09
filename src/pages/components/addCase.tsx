@@ -1,13 +1,13 @@
 import React, { useState } from "react";
 import { api } from "~/utils/api";
 import moment from "moment";
-import { type Case, type AddCaseModalProps, type AutoCompleteItem } from "~/pages/types/case";
+import { type CreateCase, type Case, type AddCaseModalProps, type AutoCompleteItem } from "~/pages/types/case";
 
 export function AddCaseModal(props: AddCaseModalProps) {
-  const clearCaseData: Case = {
-    patientId: 0,
+  const clearCaseData: CreateCase = {
     patientName: "",
     externalId: "",
+    patientId: 0,
     surgeonId: 0,
     surgeonName: "",
     procedure: "",
@@ -20,9 +20,9 @@ export function AddCaseModal(props: AddCaseModalProps) {
   const showAddCaseModal = props.showAddCaseModal;
   const setShowAddCaseModal = props.setShowAddCaseModal;
   const autoCompleteList = props.autoCompleteList;
-  const setCookie = props.setCookie;
+  
   const { patients, surgeons } = autoCompleteList;
-  const [caseData, setCaseData] = useState<Case>(clearCaseData);
+  const [caseData, setCaseData] = useState<CreateCase>(clearCaseData);
   const [filteredPatients, setFilteredPatients] = useState<AutoCompleteItem[]>([]);
   const [filteredSurgeons, setFilteredSurgeons] = useState<AutoCompleteItem[]>([]);
   const mutation = api.case.put.useMutation();
@@ -31,7 +31,7 @@ export function AddCaseModal(props: AddCaseModalProps) {
   const handleAddCase = () => {
     delete caseData.surgeonName;
     delete caseData.patientName;
-    const newCase: Case = {
+    const addCase: CreateCase = {
       patientId: Number(caseData.patientId),
       surgeonId: Number(caseData.surgeonId),
       diagnosis: caseData.diagnosis,
@@ -40,11 +40,10 @@ export function AddCaseModal(props: AddCaseModalProps) {
       externalId: caseData.externalId,
       convertedDateOfSurgery: moment(caseData.dateOfSurgery).format(),
     };
-    mutation.mutate(newCase);
+    mutation.mutate(addCase);
     // close and reset fields for model
     setShowAddCaseModal(false);
     setCaseData(clearCaseData);
-    setCookie('addCaseSuccess', true);
     window.location.href = "/";
   };
 
