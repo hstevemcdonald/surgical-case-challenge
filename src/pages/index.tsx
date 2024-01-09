@@ -1,23 +1,16 @@
 import Head from "next/head";
-import { useCookies } from "react-cookie";
 import { useState, useEffect } from "react";
+import { useCookies } from "react-cookie";
 import moment from "moment";
+
 import { api } from "~/utils/api";
 import AddCaseModal from "./components/addCase";
-import { any, string } from "zod";
-
-/**
- * Nice to haves
- * - ingore out non alpha characters when entering search
- * - how to capture params from a path
- * SEE: https://github.com/trpc/trpc/tree/main/examples/next-prisma-todomvc/src
- */
 
 const displayColumns = [
   { key: "caseIdLink", label: "Case ID" },
   { key: "patientName", label: "Patient Name" },
   { key: "surgeonName", label: "Surgeon Name" },
-  { key: "dateOfSurgery", label: "Date/Time of Surgery" },
+  { key: "dateOfSurgery", label: "Date of Surgery" },
   { key: "procedure", label: "Procedure" },
 ];
 
@@ -31,7 +24,7 @@ export default function Home(props) {
     id: string;
     name: string;
   }[] = [];
-  const [cookies, setCookie, removeCookie] = useCookies(["search"]);
+  const [cookies, setCookie, removeCookie] = useCookies(["search", "addCaseSuccess"]);
   const [searchQuery, setSearchQuery] = useState<string>("");
   const [searchQueryFinal, setSearchQueryFinal] = useState<string>("");
   const [displayRows, setDisplayRows] = useState<any[]>(caseRowData);
@@ -41,6 +34,7 @@ export default function Home(props) {
     surgeons: surgeonData,
     patients: patientData,
   });
+  const [showAddCaseSuccess, setShowAddCaseSuccess] = useState<boolean>(false);
   const cases = api.case.list.useQuery().data;
 
   useEffect(() => {
@@ -48,53 +42,57 @@ export default function Home(props) {
       return;
     }
 
-    // returning to page from search result
+    // returning to page from search result, so save the state in cookie
     if (cookies?.search != undefined && cookies.search != searchQueryFinal) {
       setSearchQuery(cookies.search);
       setSearchQueryFinal(cookies.search);
       return;
     }
 
-    // prepare condensed patient/surgeon list
+    // prepare patient/surgeon list for autocomplete
     if (autoCompleteList.surgeons.length == 0) {
       const list: any = {};
       cases.forEach((caseData: any) => {
         const { patient, surgeon } = caseData;
-        if (!list[patient["externalId"]]) {
+        if (!list[patient["id"]]) {
           autoCompleteList.patients.push({
-            id: patient["externalId"],
+            id: patient["id"],
             name: patient["name"],
+            externalId: patient["externalId"],
           });
-          list[patient["externalId"]] = true;
+          list[patient["id"]] = true;
         }
-        if (!list[surgeon["npi"]]) {
+        if (!list[surgeon["id"]]) {
           autoCompleteList.surgeons.push({
-            id: surgeon["npi"],
+            id: surgeon["id"],
             name: surgeon["name"],
           });
-          list[surgeon["npi"]] = true;
+          list[surgeon["id"]] = true;
         }
       });
       setAutoCompleteList(autoCompleteList);
     }
 
+    // filter search cases if search query is present, then assemble display rows
     const regexString = searchQueryFinal ? searchQueryFinal : "";
-    const re = new RegExp(`${regexString}`, "i");
+    const re = new RegExp(regexString, "i");
     cases
       .filter((caseData: any) => {
-        return caseData.patient.name.match(re) || caseData.externalId.match(re);
+        return (
+          caseData.patient.name.match(re) || caseData.externalId.toString().match(re)
+        );
       })
       .forEach((caseData) => {
         const href = `/case?id=${caseData.id}`;
         const idLink = <a href={href}>#{caseData.externalId}</a>;
         displayRows.push({
           key: caseData.id,
-          caseId: caseData.externalId,
+          patientId: caseData.externalId,
           caseIdLink: idLink,
           patientName: caseData.patient.name,
           surgeonName: caseData.surgeon.name,
           dateOfSurgery: moment(caseData.dateOfSurgery.toString()).format(
-            "MM/DD/YYYY HH:MM",
+            "MM/DD/YYYY",
           ),
           procedure: caseData.procedure,
         });
@@ -102,12 +100,23 @@ export default function Home(props) {
 
     setDisplayRows(displayRows);
     setLoaded(true);
+
+    if (cookies['addCaseSuccess']) {
+      setShowAddCaseSuccess(true);
+      setTimeout(() => {
+        setShowAddCaseSuccess(false);
+        removeCookie('addCaseSuccess');
+      }, 5000)
+    }
+    
   });
 
+  // update search bar
   const handleSearchInput = (e: any) => {
     setSearchQuery(e.target.value);
   };
 
+  // clear search bar
   const handleSearchInputClear = () => {
     setDisplayRows([]);
     setSearchQuery("");
@@ -116,19 +125,25 @@ export default function Home(props) {
     setLoaded(false);
   };
 
+  // search surgical cases
   const handleSearch = (e: any) => {
     e.preventDefault();
     setDisplayRows([]);
-    setSearchQueryFinal(searchQuery);
-    setCookie("search", searchQuery);
+    const stripSearch = searchQuery.replace(
+      /[^a-zA-Z0-9]/,
+      "",
+    );
+    setSearchQueryFinal(stripSearch);
+    setCookie("search", stripSearch);
     setLoaded(false);
   };
 
+  // show add case
   const handleShowAddCase = () => {
-    console.log("Show modal");
     setShowAddCaseModal(true);
   };
 
+  // show outcome of search 
   function renderSearchResults() {
     return (
       searchQueryFinal && (
@@ -192,6 +207,14 @@ export default function Home(props) {
               </div>
             </form>
 
+            {showAddCaseSuccess && (
+              <div className="mb-4 flex items-center rounded-md bg-green-300 p-2 px-4">
+                <h4>
+                  Surgical Case Added
+                </h4>
+              </div>
+            )}
+
             {!displayRows.length && (
               <div className="mb-4 flex items-center rounded-md bg-gray-200 p-2 px-4">
                 <h4>
@@ -209,6 +232,7 @@ export default function Home(props) {
                     <tr key="tableHeader">
                       {displayColumns.map((column) => (
                         <th
+                          key={column.key}
                           className={
                             "px-6 py-3 text-xs font-medium uppercase tracking-wider text-gray-500 " +
                             (column.key == "caseIdLink"
@@ -223,10 +247,11 @@ export default function Home(props) {
                   </thead>
                   <tbody>
                     {displayRows.map((row: any) => (
-                      <tr className="bg-white hover:bg-gray-100">
+                      <tr key={row.key} className="bg-white hover:bg-gray-100">
                         {displayColumns.map((column: any) => {
                           return (
                             <td
+                              key={column.key}
                               className={
                                 "whitespace-nowrap px-6 py-4 text-sm font-medium text-gray-900" +
                                 (column.key == "caseIdLink" && " text-right")
@@ -246,7 +271,7 @@ export default function Home(props) {
           <AddCaseModal
             showAddCaseModal={showAddCaseModal}
             setShowAddCaseModal={setShowAddCaseModal}
-            setLoaded={setLoaded}
+            setCookie={setCookie}
             autoCompleteList={autoCompleteList}
           />
         </main>

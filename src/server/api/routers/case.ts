@@ -23,14 +23,19 @@ export const caseRouter = createTRPCRouter({
       });
     }),
   put: publicProcedure
+    .input(z.object({ diagnosis: z.string(), convertedDateOfSurgery: z.date(), procedure: z.string(), icd10Code: z.string(), surgeonId: z.number(), patientId: z.number(), externalId: z.string() }))
     .mutation(({ input, ctx }) => {
-
-      console.log("PUT", input, ctx);
-      // return ctx.db.surgicalCase.create({
-      //   data: {
-      //     externalId: input.externalId,
-      //   }
-      // })
+      return ctx.db.surgicalCase.create({
+        data: {
+          externalId: input.externalId,
+          patientId: input.patientId,
+          surgeonId: input.surgeonId,
+          diagnosis: input.diagnosis,
+          procedure: input.procedure,
+          icd10Code: input.icd10Code,
+          dateOfSurgery: input.convertedDateOfSurgery
+        }
+      })
     }),
   first: publicProcedure.query(({ ctx }) => {
     return ctx.db.surgicalCase.findFirst();
@@ -50,11 +55,3 @@ export const caseRouter = createTRPCRouter({
 //     createdAt     DateTime @default(now())
 //     updatedAt     DateTime @updatedAt
 
-// create: publicProcedure
-//   .input(z.object({ patient_id: z.string(), diagnosis: z.string(), date_of_surgery: z.date(), procedure: z.string(), ICD-10_diagnosis_code: z.string(), surgeon_npi: z.string() }))
-//   .mutations(({ input, ctx }) => {
-//     return ctx.db.surgicalCase.create({
-
-//     });
-//   }),
-// .input(z.object({ patient_id: z.string(), diagnosis: z.string(), date_of_surgery: z.date(), procedure: z.string(), ICD-10_diagnosis_code: z.string(), surgeon_npi: z.string() }))

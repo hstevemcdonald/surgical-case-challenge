@@ -1,7 +1,6 @@
 import moment from "moment";
 import Head from "next/head";
 import { useSearchParams } from "next/navigation";
-
 import { api } from "~/utils/api";
 
 export default function Case(props) {
@@ -16,16 +15,16 @@ export default function Case(props) {
 
   const patientFields = [
     { key: "name", label: "Name:" },
-    { key: "externalId", label: "External ID:" },
     { key: "age", label: "Age:" },
     { key: "gender", label: "Gender:" },
     { key: "phone", label: "Phone:" },
   ];
   const caseFields = [
-    { key: "diagnosis", label: "Diagnosis:" },
-    { key: "dateOfSurgery", label: "Date/Time of Surgery:" },
-    { key: "procedure", label: "Procedure:" },
+    { key: "externalId", label: "External ID:" },
     { key: "icd10Code", label: "10 Diagnosis Code:" },
+    { key: "diagnosis", label: "Diagnosis:" },
+    { key: "procedure", label: "Procedure:" },
+    { key: "dateOfSurgery", label: "Date of Surgery:" },
   ];
   const surgeonFields = [
     { key: "name", label: "Name:" },
@@ -45,7 +44,7 @@ export default function Case(props) {
       </Head>
       <header className="border-b border-gray-400 bg-gray-200 p-4">
         <h1 className="text-center text-2xl font-bold">
-          Surgical Case: {caseId}
+          Surgical Case ID: #{caseData.externalId}
         </h1>
       </header>
 
@@ -120,7 +119,7 @@ export default function Case(props) {
                       const c2Value =
                         field.key === "dateOfSurgery"
                           ? moment(caseData[field.key]).format(
-                              "MM/DD/YYYY HH:MM",
+                              "MM/DD/YYYY",
                             )
                           : caseData[field.key];
                       const c2 = (

@@ -1,35 +1,61 @@
 import React, { useState } from "react";
-import DatePicker from 'react-datepicker';
 import { api } from "~/utils/api";
 import moment from "moment";
 
+type CaseData = {
+  patientId: number;
+  externalId: string;
+  patientName?: string;
+  surgeonId: number;
+  surgeonName?: string;
+  procedure: string;
+  diagnosis: string;
+  dateOfSurgery?: string;
+  convertedDateOfSurgery: Date;
+  icd10Code: string;
+};
+
 export default function AddCaseModal(props) {
-  const clearCaseData = {
-    patientId: "",
+  const clearCaseData: CaseData = {
+    patientId: 0,
     patientName: "",
-    surgeonId: "",
+    externalId: "",
+    surgeonId: 0,
     surgeonName: "",
     procedure: "",
     diagnosis: "",
     dateOfSurgery: "",
-    ICD10DiagnosisCode: "",
+    convertedDateOfSurgery: new Date(),
+    icd10Code: "",
   };
-  const { showAddCaseModal, setShowAddCaseModal, autoCompleteList } = props;
+
+  const { showAddCaseModal, setShowAddCaseModal, autoCompleteList, setCookie } = props;
   const { patients, surgeons } = autoCompleteList;
   const [caseData, setCaseData] = useState<any>(clearCaseData);
   const [filteredPatients, setFilteredPatients] = useState<any[]>([]);
   const [filteredSurgeons, setFilteredSurgeons] = useState<any[]>([]);
-  const [selectedDate, setSelectedDate] = useState<Date>(new Date());
-
   const mutation = api.case.put.useMutation();
 
   // add case to db
-  const handleAddCase = (e: any) => {
-    alert("Add patient", JSON.stringify(caseData));
-    // mutation.mutate();
+  const handleAddCase = () => {
+    delete caseData.surgeonName;
+    delete caseData.patientName;
+    const newCase: CaseData = {
+      patientId: Number(caseData.patientId),
+      surgeonId: Number(caseData.surgeonId),
+      diagnosis: caseData.diagnosis,
+      procedure: caseData.procedure,
+      icd10Code: caseData.icd10Code,
+      externalId: caseData.externalId,
+      convertedDateOfSurgery: moment(caseData.dateOfSurgery).toDate(),
+    };
+    console.log(newCase)
+    mutation.mutate(newCase);
     // close and reset fields for model
     setShowAddCaseModal(false);
     setCaseData(clearCaseData);
+    setCookie('addCaseSuccess', true);
+    window.location.href = "/";
   };
 
   // close modal
@@ -42,13 +68,12 @@ export default function AddCaseModal(props) {
   const handlePatientChange = (e: any) => {
     const value = e.target.value;
     setCaseData({ ...caseData, patientName: value });
-
-    console.log(patients);
     setFilteredPatients(
       value.length
         ? patients.filter((patient: { id: string; name: string }) => {
-            const re = new RegExp(value, "i");
-            return patient.id.match(re) || patient.name.match(re);
+            const stripSearch = value.replace(/[^a-zA-Z0-9]/, "");
+            const re = new RegExp(stripSearch, "i");
+            return patient.id.toString().match(re) || patient.name.match(re);
           })
         : "",
     );
@@ -63,13 +88,14 @@ export default function AddCaseModal(props) {
   // display autocomplete list of matching surgeons
   const handleSurgeonChange = (e: any) => {
     const value = e.target.value;
-    setCaseData({ ...caseData, SurgeonName: value });
+    setCaseData({ ...caseData, surgeonName: value });
 
     setFilteredSurgeons(
       value.length
         ? surgeons.filter((surgeon: { id: string; name: string }) => {
-            const re = new RegExp(value, "i");
-            return surgeon.id.match(re) || surgeon.name.match(re);
+            const stripSearch = value.replace(/[^a-zA-Z0-9]/, "");
+            const re = new RegExp(stripSearch, "i");
+            return surgeon.name.match(re);
           })
         : "",
     );
@@ -83,14 +109,9 @@ export default function AddCaseModal(props) {
 
   // handle form fields
   const handleFormFieldChange = (e: any) => {
-    const value = e.target.value;
     const fieldName = e.target.id;
+    const value = e.target.value;
     setCaseData({ ...caseData, [fieldName]: value });
-  };
-
-  // handle datepicker
-  const handleDateChange = (date) => {
-    setSelectedDate(date);
   };
 
   return (
@@ -113,8 +134,25 @@ export default function AddCaseModal(props) {
                     </span>
                   </button>
                 </div>
+
                 <div className="bg-white px-4 pb-4 pt-5 sm:p-6 sm:pb-4">
-                  <form className="space-y-6">
+                  <form className="space-y-3">
+                    <div className="mb-6 md:flex md:items-center">
+                      <div className="md:w-1/3">
+                        <label className="mb-1 block pr-4 font-bold text-gray-500 md:mb-0 md:text-right">
+                          Case ID
+                        </label>
+                      </div>
+                      <div className="md:w-2/3">
+                        <input
+                          id="externalId"
+                          className="w-full appearance-none rounded border-2 border-gray-200  px-4 py-2 leading-tight text-gray-700 focus:border-purple-500 focus:bg-white focus:outline-none"
+                          type="text"
+                          value={caseData.externalId}
+                          onChange={handleFormFieldChange}
+                        />
+                      </div>
+                    </div>
                     <div className="mb-6 md:flex md:items-center">
                       <div className="md:w-1/3">
                         <label className="mb-1 block pr-4 font-bold text-gray-500 md:mb-0 md:text-right">
@@ -133,7 +171,7 @@ export default function AddCaseModal(props) {
                           <ul className="absolute z-50 max-h-60 overflow-auto rounded-md bg-white py-1 text-base shadow-md ring-1 ring-black ring-opacity-5">
                             {filteredPatients.map((patient) => (
                               <li
-                                key={patient.id}
+                                key={patient.id + "patient"}
                                 className="cursor-pointer px-4 py-2 hover:bg-gray-100"
                                 onClick={() => handleSelectPatient(patient)}
                               >
@@ -152,10 +190,10 @@ export default function AddCaseModal(props) {
                       </div>
                       <div className="md:w-2/3">
                         <input
-                          id="ICD10DiagnosisCode"
+                          id="icd10Code"
                           className="w-full appearance-none rounded border-2 border-gray-200  px-4 py-2 leading-tight text-gray-700 focus:border-purple-500 focus:bg-white focus:outline-none"
                           type="text"
-                          value={caseData.ICD10DiagnosisCode}
+                          value={caseData.icd10Code}
                           onChange={handleFormFieldChange}
                         />
                       </div>
@@ -211,7 +249,7 @@ export default function AddCaseModal(props) {
                           <ul className="absolute z-50 max-h-60 overflow-auto rounded-md bg-white py-1 text-base shadow-md ring-1 ring-black ring-opacity-5">
                             {filteredSurgeons.map((surgeon) => (
                               <li
-                                key={surgeon.id}
+                                key={surgeon.id + "surgeon"}
                                 className="cursor-pointer px-4 py-2 hover:bg-gray-100"
                                 onClick={() => handleSelectSurgeon(surgeon)}
                               >
@@ -236,25 +274,6 @@ export default function AddCaseModal(props) {
                           value={caseData.dateOfSurgery}
                           onChange={handleFormFieldChange}
                         />
-                        <div className="relative">
-                          <input
-                            type="text"
-                            value={
-                              selectedDate
-                                ? moment(selectedDate).format(selectedDate, "yyyy-MM-dd")
-                                : ""
-                            }
-                            className="peer w-full rounded-md border border-gray-300 py-2 pl-8 pr-3 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500 sm:text-sm"
-                            readOnly
-                            placeholder="Select a date"
-                          />
-                          <DatePicker
-                            selected={selectedDate}
-                            onChange={handleDateChange}
-                            dateFormat="yyyy-MM-dd"
-                            className="absolute right-0 top-0 z-50 mr-4 mt-3 w-full max-w-md rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm"
-                          />
-                        </div>
                       </div>
                     </div>
                   </form>

@@ -1,84 +1,40 @@
-# Procision Surgical Case Data Code Challenge
 
-## Overview
+Hello!
 
-- Clone the repo
-- Implement the solution
-- Test and document your solution as appropriate
-- Provide a link to your repo
-- Expect to discuss the solution with us
+Thanks for the opportunity to do this take-home project.  It was a lot of fun and I learned quite a bit.  Until now, my implementation of features in React has been on an completed application/platform where the structure/framework for Typescript and React was established and mature in so far as best practices.  In doing this project, I was able to see where there were gaps in my learning React/Typescript in a 100% deployed application vs doing many things from scratch as in this project.  I have listed several 'todos' below that I believe would make the Typescript and React implementation more complete and syntactically correct if I had the opportunity. 
 
-## Problem
+tRPC, Next.js, Prisma and Tailwind were all brand new to me, so there was quite a bit of getting up to speed on all of the above in order to implement the features.
 
-Using the provided project implement the following fullstack application:
+I opted to complete the main assignment, then do something a bit different for the optional work by creating an "Add Case" function and an auto-complete function within the modal for patients and surgeons.
 
-- An index page [see diagram below](#index-page) that lists cases. See the wireframe for how this should look and fields to display on the index.
-- A search field that filters the list by patient name or case ID.
-- A case detail page [see diagram below](#detail-page) that displays details on case, patient, and surgeon for a given case. Clicking on an item in the index should take you to the detail page.
-- Use data from [./data/cases.json](./data/cases.json) to populate these pages.
+There is quite a bit I would have liked to do if I had time, but I prioritized the main functions and the 'Add Case' fucntionality as I thought that may be the main priority given the 'backend' component of this project was very low in complexity.
 
-### Data model
+If there was time and bandwidth, these are the tasks that I would do to.  I would welcome an opportunity to pick one or more of these to work on in the next stage of the interview (please let me know which in advance).
 
-The provided data is composed of:
+Thanks again and I look forward to hearing from you.
 
-- SurgicalCase: A surgical procedures performed in an operating room on an individual.
-- Patient: A person receiving or who will receive medical care, in this case a surgical case.
-- Surgeon: A physician who will administer medical care to a patient as part of a surgical case.
+- Steve
 
-### <a name="index-page"></a> Index Page
+## TODOS:
 
-![Index Page](./data/list-page.png)
+- Replace images with high-res images (new images currently in public/faces), update DB user attributes to reflect new image
+- Consolidate handlers for any/all autocomplete fields
+- Add "Time of surgery" to db and all views (I presume this would be important)
+- Create/consolidate utility/helper functions to reduce code
+- Combined Diagnosis text and Diagnosis code as appropriate
+- Create Typescript interfaces for objects and params, implement where applicable
+- Restrict the entry of information in Patient and Surgeon fields to matching autocomplete results only
+- Update params types/interface references
+- Add sort feature for columns on case list
+- Print "Surgical Case" page
+- Unit tests
 
-### <a name="detail-page"></a> Detail Page
+## On the 'Add Case' form/operation:
 
-![Detail Page](./data/detail-page.png)
+- Add validation for "Add case" form
+- Style header, heading and close icon for "Add case" modal
+- Error handling for "Add case" and DB operations
+- Add Case # to 'Case Added' confirmation
+- Combine Diagnosis text and Diagnosis code into autocomplete list
+- Indicate if External ID is already in use and display error
 
-Creating this application will require implementing a react UI along with APIs to source the data.
-
-## Tech stack
-
-This provided repo is setup with a tech stack similar to what we’re using. Below are links to the relevant technologies contained within.
-
-- [Next.js](https://nextjs.org)
-- [Prisma](https://prisma.io)
-- [Tailwind CSS](https://tailwindcss.com)
-- [tRPC](https://trpc.io)
-
-While we have suggested a stack based on what we use, you may prefer other technologies such as a different UI library, API paradigm such as graphql, etc. You can use what you prefer but please come prepared to explain your choices. Using all or most of our stack gives us the opportunity to evaluate your skills in these technologies.
-
-## Setup
-
-## Project
-- Clone the repo from github
-- Run `npm install` to install dependencies
-
-### Next.js
-
-- Create a `.env` file at the root level to provide any required environment variables to run the application.
-  - Use the `.env.example` file as an example to work from. It already includes a SQLite connnection string.
-  - NOTE: Environment variables are validated within the `./src/env.js` file and any new ones need to be added there as well.
-- This is currently setup to use the pages router. You may use the app router if you prefer.
-- To run the app locally use `npm run dev`.
-
-### Prisma
-
-- Prisma is currently setup to use a local SQLite db.
-- Modify the example db schema at [./prisma/schema.prisma](./prisma/schema.prisma).
-- Update the example seed script at [./prisma/seed.ts](./prisma/seed.ts) to import case data into the db.
-- Use `npm run db:push` to push schema changes to the local db.
-- Use `npm run db:seed` to seed data into the local db.
-- Use `npm run db:studio` to start Prisma Studio that can be used to explore the local db.
-
-### tRPC
-
-- Additional api routes can be added in the [./src/server/api/routers](./src/server/api/routers) folder.
-- Any new routes must be added to the root router at [./src/server/api/root.ts](./src/server/api/root.ts).
-
-To make it easier to present your finished application, it can be hosted on [Vercel](https://nextjs.org/learn-pages-router/basics/deploying-nextjs-app/deploy) or another provider of your choice.
-
-## Optional bonuses (especially encouraged for takehome interviews):
-
-- Develop the ability to create new cases and patients.
-- Develop the ability to edit a case or patient.
-- Implement the search field as an auto-complete.
-- Enhance the search to be AI powered using the [TypeChat](https://microsoft.github.io/TypeChat/) library. The accompanying documentation and [examples](https://microsoft.github.io/TypeChat/docs/examples/) on their GitHub should give you clear direction. _Note this will require an OpenAI API key._
