@@ -6,7 +6,7 @@ import { api } from "~/utils/api";
 
 export default function Case(props) {
   const searchParams = useSearchParams();
-  const caseId = searchParams.get("id");
+  const caseId: string | null = searchParams.get("id");
   const caseData: any = api.case.get.useQuery({ id: Number(caseId) }).data;
   if (!caseData) {
     return <></>;

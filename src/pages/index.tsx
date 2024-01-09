@@ -3,6 +3,8 @@ import { useCookies } from "react-cookie";
 import { useState, useEffect } from "react";
 import moment from "moment";
 import { api } from "~/utils/api";
+import AddCaseModal from "./components/addCase";
+import { any, string } from "zod";
 
 /**
  * Nice to haves
@@ -21,11 +23,24 @@ const displayColumns = [
 
 export default function Home(props) {
   const caseRowData: any[] = [];
+  const surgeonData: {
+    id: string;
+    name: string;
+  }[] = [];
+  const patientData: {
+    id: string;
+    name: string;
+  }[] = [];
   const [cookies, setCookie, removeCookie] = useCookies(["search"]);
-  const [searchQuery, setSearchQuery] = useState("");
-  const [searchQueryFinal, setSearchQueryFinal] = useState("");
-  const [displayRows, setDisplayRows] = useState(caseRowData);
+  const [searchQuery, setSearchQuery] = useState<string>("");
+  const [searchQueryFinal, setSearchQueryFinal] = useState<string>("");
+  const [displayRows, setDisplayRows] = useState<any[]>(caseRowData);
   const [loaded, setLoaded] = useState(false);
+  const [showAddCaseModal, setShowAddCaseModal] = useState<boolean>(false);
+  const [autoCompleteList, setAutoCompleteList] = useState<any>({
+    surgeons: surgeonData,
+    patients: patientData,
+  });
   const cases = api.case.list.useQuery().data;
 
   useEffect(() => {
@@ -38,6 +53,29 @@ export default function Home(props) {
       setSearchQuery(cookies.search);
       setSearchQueryFinal(cookies.search);
       return;
+    }
+
+    // prepare condensed patient/surgeon list
+    if (autoCompleteList.surgeons.length == 0) {
+      const list: any = {};
+      cases.forEach((caseData: any) => {
+        const { patient, surgeon } = caseData;
+        if (!list[patient["externalId"]]) {
+          autoCompleteList.patients.push({
+            id: patient["externalId"],
+            name: patient["name"],
+          });
+          list[patient["externalId"]] = true;
+        }
+        if (!list[surgeon["npi"]]) {
+          autoCompleteList.surgeons.push({
+            id: surgeon["npi"],
+            name: surgeon["name"],
+          });
+          list[surgeon["npi"]] = true;
+        }
+      });
+      setAutoCompleteList(autoCompleteList);
     }
 
     const regexString = searchQueryFinal ? searchQueryFinal : "";
@@ -66,8 +104,8 @@ export default function Home(props) {
     setLoaded(true);
   });
 
-  const handleSearchInput = (query: any) => {
-    setSearchQuery(query.target.value);
+  const handleSearchInput = (e: any) => {
+    setSearchQuery(e.target.value);
   };
 
   const handleSearchInputClear = () => {
@@ -86,10 +124,15 @@ export default function Home(props) {
     setLoaded(false);
   };
 
+  const handleShowAddCase = () => {
+    console.log("Show modal");
+    setShowAddCaseModal(true);
+  };
+
   function renderSearchResults() {
     return (
       searchQueryFinal && (
-        <div className="mb-4 rounded-md bg-gray-200 px-4 p-2">
+        <div className="mb-4 rounded-md bg-gray-200 p-2 px-4">
           <h4>
             {displayRows.length} case{displayRows.length > 1 ? "s" : ""} found
             for '{searchQueryFinal}'
@@ -107,13 +150,13 @@ export default function Home(props) {
           <link rel="icon" href="/favicon.ico" />
           <link rel="stylesheet" href="https://rsms.me/inter/inter.css" />
         </Head>
-        <header className="p-4 bg-gray-200 border-b border-gray-400">
-  <h1 className="text-2xl font-bold text-center">Surgical Cases</h1>
-</header>
+        <header className="border-b border-gray-400 bg-gray-200 p-4">
+          <h1 className="text-center text-2xl font-bold">Surgical Cases</h1>
+        </header>
         <main className="min-h-screen bg-gray-100">
-          <div className="container mx-auto max-w-4xl pt-4 pb-4">
+          <div className="container mx-auto max-w-4xl pb-4 pt-4">
             <form onSubmit={handleSearch}>
-              <div className="flex w-full pt- pb-5">
+              <div className="pt- flex w-full pb-5">
                 <div className="flex w-3/4 items-center justify-start">
                   <input
                     type="text"
@@ -133,13 +176,16 @@ export default function Home(props) {
                   )}
                   <input
                     type="submit"
-                    className="ml-2 rounded-md bg-blue-500 px-4 py-2 text-white hover:bg-blue-600"
+                    className="ml-2 rounded-md bg-blue-500 px-4 py-2 text-white  hover:bg-gray-500"
                     value="Go"
                   />
                 </div>
 
                 <div className="flex w-1/4 items-center justify-end">
-                  <button className="rounded-md bg-green-500 px-4 py-2 text-white">
+                  <button
+                    className="rounded-md bg-green-500 px-4 py-2 text-white  hover:bg-gray-500"
+                    onClick={handleShowAddCase}
+                  >
                     Add Case
                   </button>
                 </div>
@@ -147,7 +193,7 @@ export default function Home(props) {
             </form>
 
             {!displayRows.length && (
-              <div className="mb-4 flex items-center rounded-md bg-gray-200 px-4 p-2">
+              <div className="mb-4 flex items-center rounded-md bg-gray-200 p-2 px-4">
                 <h4>
                   No cases found
                   {searchQueryFinal ? ` for '${searchQueryFinal}'.` : "."}
@@ -197,6 +243,12 @@ export default function Home(props) {
               </>
             )}
           </div>
+          <AddCaseModal
+            showAddCaseModal={showAddCaseModal}
+            setShowAddCaseModal={setShowAddCaseModal}
+            setLoaded={setLoaded}
+            autoCompleteList={autoCompleteList}
+          />
         </main>
       </>
     )
