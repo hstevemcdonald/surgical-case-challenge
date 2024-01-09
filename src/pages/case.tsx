@@ -1,12 +1,11 @@
 import Head from "next/head";
 import { useSearchParams } from "next/navigation";
 import { api } from "~/utils/api";
-import { type Surgeon } from "~/pages/types/surgeon";
-import { type Patient } from "~/pages/types/patient";
+import { type Surgeon } from "~/types/surgeon";
+import { type Patient } from "~/types/patient";
 import moment from 'moment';
 
-// @ts-expect-error VSCODE bug - unable to remove unused props param
-export default function SurgicalCase (_props) {
+export default function SurgicalCase () {
   const searchParams = useSearchParams();
   const caseId: string | null = searchParams.get("id");
   const caseData = api.case.get.useQuery({ id: Number(caseId) }).data;

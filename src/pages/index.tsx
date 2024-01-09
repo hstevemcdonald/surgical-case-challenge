@@ -5,7 +5,7 @@ import moment from "moment";
 
 import { api } from "~/utils/api";
 import AddCaseModal from "./components/addCase";
-import { type KeyLabel, type AutoCompleteItem, type AutoCompleteList, type Case } from "./types/case";
+import { type KeyLabel, type AutoCompleteItem, type AutoCompleteList, type Case } from "../types/case";
 
 const displayColumns: KeyLabel[] = [
   { key: "caseIdLink", label: "Case ID" },
@@ -15,9 +15,7 @@ const displayColumns: KeyLabel[] = [
   { key: "procedure", label: "Procedure" },
 ];
 
-/** workaround for VSCODE bug? Is adding props plugin? is adding unnecessary props param to default export*/
-// @ts-expect-error VSCODE bug
-const Home = (_props) => {
+export default function Home() {
   const caseRowData: Case[] = [];
   const surgeonData: AutoCompleteItem[] = [];
   const patientData: AutoCompleteItem[] = [];
@@ -281,5 +279,3 @@ const Home = (_props) => {
     )
   );
 }
-
-export default Home;

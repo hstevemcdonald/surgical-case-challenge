@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { api } from "~/utils/api";
 import moment from "moment";
-import { type CreateCase,  type AddCaseModalProps, type AutoCompleteItem } from "~/pages/types/case";
+import { type CreateCase,  type AddCaseModalProps, type AutoCompleteItem } from "~/types/case";
 
 export default function AddCaseModal(props: AddCaseModalProps) {
   const clearCaseData: CreateCase = {
