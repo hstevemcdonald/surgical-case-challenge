@@ -82,6 +82,9 @@ export default function Home() {
         );
       })
       .forEach((caseData) => {
+        /** To reviewer -- I found that while the object returned from api.case.list.useQuery().data was iterable, 
+         * I was unable to use it directly in a map to render rows.  In the interest of time, as a workaround,
+         * I created the displayRows state variable render rows. */
         displayRows.push({
           surgeonId: caseData.surgeonId,
           caseId: caseData.id,
