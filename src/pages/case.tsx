@@ -113,7 +113,7 @@ export default function SurgicalCase () {
 
                     <div className="col-span-2">
                       <p className="text-right">
-                        <strong>External ID::</strong>
+                        <strong>External ID:</strong>
                       </p>
                     </div>
                     <div className="col-span-3">
